@@ -26,12 +26,13 @@ angular.module('myAppRename.controllers', []).
     $scope.isUser = false;
     $scope.message = '';
     $scope.error = null;
-    delete $window.sessionStorage.token;
+    delete $window.sessionStorage.token; //Erases token when reloading page, temporary fix for authentication problems
 
     $scope.submit = function () {
       $http
         .post('/authenticate', $scope.user)
         .success(function (data, status, headers, config) {
+          $location.path("/view1");
           $window.sessionStorage.token = data.token;
           $scope.isAuthenticated = true;
           var encodedProfile = data.token.split('.')[1];
