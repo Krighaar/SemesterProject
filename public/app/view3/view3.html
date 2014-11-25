@@ -1,7 +1,30 @@
+<h1>TO BUY</h1>
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
 <p>This is the partial for view 3.</p>
 <p>Data is fetched from a REST service, connected to MongoDB </p>
-<ul>
-  <li ng-repeat="user in users"> {{user.userName}} {{user.email}} </li>
-</ul>
+
 </p>
+<table class=" table table-striped">
+    <thead>
+          <th>Bought</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Owner</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wish in whises">
+        <td><input type="checkbox"></td>
+        <td>{{wish.title}}</td>
+        <td>{{wish.price}}</td>
+        <td>{{wish.description}}</td>
+        <td>{{wish.owner}}</td>
+    </tr>
+    </tbody>
+</table>
+        <input type="text" ng-model="newWish.title" placeholder="Title">
+        <input type="text" ng-model="newWish.description" placeholder="description">
+        <input type="text" ng-model="newWish.owner" placeholder="owner">
+        <input type="number" ng-model="newWish.title" placeholder="price">
+        <input type="text" ng-model="newWish.user" placeholder="user">
+        <input type="text" ng-model="newWish.link" placeholder="link">
