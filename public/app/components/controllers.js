@@ -26,6 +26,7 @@ angular.module('myAppRename.controllers', []).
     $scope.isUser = false;
     $scope.message = '';
     $scope.error = null;
+    delete $window.sessionStorage.token;
 
     $scope.submit = function () {
       $http
