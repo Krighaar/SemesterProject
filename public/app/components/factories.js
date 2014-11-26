@@ -42,6 +42,9 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.getWish = function () {
         return $http.get(urlBase + '/user')
     }
+    wishFactory.removeWish=function(wish) {
+        return $http.delete(urlBase +'/'+wish)
+    }
 
     return wishFactory;
 }]);

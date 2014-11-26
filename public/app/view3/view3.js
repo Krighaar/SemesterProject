@@ -9,27 +9,18 @@ angular.module('myAppRename.view3', ['ngRoute'])
         });
     }])
 
-    .controller('View3Ctrl',['$scope' , 'wishFactory', function ($scope, wishFactory) {
+    .controller('View3Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
-            wishFactory.getWish()
-                .success(function (wish) {
-                    $scope.whises = wish;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load customer data: ' + error.message;
-                });
 
+        wishFactory.getWish()
+            .success(function (wish) {
+                $scope.whises = wish;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
 
         $scope.createWish = function createWish(wish) {
-
-            //var wish = {
-            //    owner: $scope.user,
-            //    title: $scope.title,
-            //    description: $scope.description,
-            //    price: $scope.price,
-            //    link: $scope.link,
-            //    bought: false
-            //};
 
             wishFactory.createWish(wish)
                 .success(function () {
@@ -39,7 +30,13 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 error(function (error) {
                     $scope.status = 'Unable to insert customer: ' + error.message;
                 });
-            $scope.newwish={};
+            $scope.newwish = {};
+            $scope.$apply();
+        }
+
+        $scope.remove = function remove(userName) {
+            wishFactory.removeWish(userName)
+            $scope.loadwish();
         }
 
     }]);

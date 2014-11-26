@@ -21,7 +21,7 @@
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td>{{wish.owner}}</td>
-        <td>{{wish.link}} <button ng-click="remove($index)">x </button></td></td>
+        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a> <button ng-click="remove(wish._id)">x </button></td></td>
     </tr>
     </tbody>
 </table>

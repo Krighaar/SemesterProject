@@ -11,8 +11,10 @@ router.get('/', function(req, res) {
   res.redirect("app/index.html")
 });
 
-// http://sunnycop.cloudapp.net/9876
+// http://sunnycop.cloudapp.net:9876/
 router.post('/authenticate', function (req, res) {
+
+
   //TODO: Go and get UserName Password from "somewhere"
   //if is invalid, return 401
    if (req.body.username === 'student' && req.body.password === 'test') {
