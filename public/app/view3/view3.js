@@ -41,11 +41,11 @@ angular.module('myAppRename.view3', ['ngRoute'])
         $scope.createWish = function () {
 
             var wish = {
-                owner: req.body.user,
-                Title: req.body.title,
-                Description: req.body.description,
-                price: req.body.price,
-                Link: req.body.link,
+                owner: $scope.user,
+                Title: $scope.title,
+                Description: $scope.description,
+                price: $scope.price,
+                Link: $scope.link,
                 bought: false
             };
             dataFactory.createWish(wish)

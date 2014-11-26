@@ -23,16 +23,19 @@ router.get('/user', function (req, res) {
 });
 
 router.post("/", function (req, res, next) {
+
+
     var wish = {
 
-        owner: req.body.user,
+        owner: req.body.owner,
         Title: req.body.title,
         Description: req.body.description,
         price: req.body.price,
         Link: req.body.link,
-        bought: false
+        bought: false,
+        Selected: ""
     }
-    user.createNew(wish, function (err, newWish) {
+    user.create(wish, function (err, newWish) {
         if (err) {
             res.status(err.status || 500);
             res.send(JSON.stringify({error: err.toString()}));
