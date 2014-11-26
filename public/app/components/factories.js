@@ -45,6 +45,9 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.removeWish=function(wish) {
         return $http.delete(urlBase +'/'+wish)
     }
+    wishFactory.updateWish=function(wish) {
+        return $http.put(urlBase,wish);
+    }
 
     return wishFactory;
 }]);

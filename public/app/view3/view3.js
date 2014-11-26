@@ -22,21 +22,37 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
         $scope.createWish = function createWish(wish) {
 
-            wishFactory.createWish(wish)
-                .success(function () {
-                    $scope.status = 'Inserted Customer! Refreshing customer list.';
+            if ($scope.newWish._id != null) {
 
-                }).
-                error(function (error) {
-                    $scope.status = 'Unable to insert customer: ' + error.message;
-                });
-            wishFactory.getWish()
-                .success(function (wish) {
-                    $scope.whises = wish;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load customer data: ' + error.message;
-                });
+                console.log("updated");
+                //commented out because its not working ATM - Eter
+                //wishFactory.updateWish(wish).success(function () {
+                //    $scope.status = 'Inserted Customer! Refreshing customer list.';
+                //
+                //}).
+                //    error(function (error) {
+                //        $scope.status = 'Unable to insert customer: ' + error.message;
+                //    });
+            }
+            else {
+
+                wishFactory.createWish(wish)
+                    .success(function () {
+                        $scope.status = 'Inserted Customer! Refreshing customer list.';
+
+                    }).
+                    error(function (error) {
+                        $scope.status = 'Unable to insert customer: ' + error.message;
+                    });
+                wishFactory.getWish()
+                    .success(function (wish) {
+                        $scope.whises = wish;
+                    })
+                    .error(function (error) {
+                        $scope.status = 'Unable to load customer data: ' + error.message;
+                    });
+            }
+            $scope.newWish = {};
         }
 
         $scope.remove = function remove(userName) {
@@ -50,12 +66,13 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 });
         }
 
-        $scope.edit = function(wish){
-            console.log(wish)
+        $scope.edit = function (wish) {
             $scope.newWish = wish;
         }
 
-    }]);
+    }
+    ])
+;
 
 
 
