@@ -30,13 +30,24 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 error(function (error) {
                     $scope.status = 'Unable to insert customer: ' + error.message;
                 });
-            $scope.newwish = {};
-            $scope.$apply();
+            wishFactory.getWish()
+                .success(function (wish) {
+                    $scope.whises = wish;
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                });
         }
 
         $scope.remove = function remove(userName) {
             wishFactory.removeWish(userName)
-            $scope.loadwish();
+            wishFactory.getWish()
+                .success(function (wish) {
+                    $scope.whises = wish;
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                });
         }
 
     }]);
