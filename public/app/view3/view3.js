@@ -50,6 +50,11 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 });
         }
 
+        $scope.edit = function(wish){
+            console.log(wish)
+            $scope.newWish = wish;
+        }
+
     }]);
 
 
