@@ -24,16 +24,15 @@ router.get('/user', function (req, res) {
 
 router.post("/", function (req, res, next) {
 
-
     var wish = {
 
         owner: req.body.owner,
-        Title: req.body.title,
-        Description: req.body.description,
+        title: req.body.title,
+        description: req.body.description,
         price: req.body.price,
-        Link: req.body.link,
+        link: req.body.link,
         bought: false,
-        Selected: ""
+        selected: ""
     }
     user.create(wish, function (err, newWish) {
         if (err) {

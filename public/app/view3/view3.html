@@ -1,16 +1,18 @@
-<h1>TO BUY</h1>
+<h1>Wish List</h1>
 <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
-<p>This is the partial for view 3.</p>
-<p>Data is fetched from a REST service, connected to MongoDB </p>
+<p>Dear
+<div style="font-weight: bold">{{username}}</div></p>
+<p>Below is a list of all you wishes</p>
 
 </p>
 <table class=" table table-striped">
     <thead>
-          <th>Bought</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Description</th>
-          <th>Owner</th>
+    <th>Bought</th>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th>Link</th>
     </thead>
     <tbody>
     <tr ng-repeat="wish in whises">
@@ -19,12 +21,43 @@
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td>{{wish.owner}}</td>
+        <td>{{wish.link}} <button ng-click="remove($index)">x </button></td></td>
     </tr>
     </tbody>
 </table>
-        <input type="text" ng-model="newWish.title" placeholder="Title">
-        <input type="text" ng-model="newWish.description" placeholder="description">
-        <input type="text" ng-model="newWish.owner" placeholder="owner">
-        <input type="number" ng-model="newWish.title" placeholder="price">
-        <input type="text" ng-model="newWish.user" placeholder="user">
-        <input type="text" ng-model="newWish.link" placeholder="link">
+<h4>Add wish</h4>
+<br/>
+<input type="text" ng-model="newWish.title" placeholder="Title">
+<input type="text" ng-model="newWish.description" placeholder="Description">
+<input type="text" ng-model="newWish.owner" placeholder="Owner">
+<input type="number" ng-model="newWish.price" placeholder="Price">
+<input type="text" ng-model="newWish.user" placeholder="User">
+<input type="text" ng-model="newWish.link" placeholder="Link">
+<button class="btn btn-default" ng-model="newWish" ng-click="createWish(newWish)">Create</button>
+
+<h4>Testing the checkbox</h4>
+<br/>
+<button class="btn btn-default" ng-model="newWish.link">Add to to buy list</button>
+<br/>
+        <h4>TO BUY</h4>
+<table class="table table-striped">
+    <thead>
+    <th>Bought</th>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th>Link</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wish in toBuy">
+        <td><input type="checkbox"></td>
+        <td>{{wish.title}}</td>
+        <td>{{wish.price}}</td>
+        <td>{{wish.description}}</td>
+        <td>{{wish.owner}}</td>
+        <td>{{wish.link}} </td>
+    </tr>
+    </tbody>
+</table>
+

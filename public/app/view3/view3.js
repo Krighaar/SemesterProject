@@ -9,25 +9,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
         });
     }])
 
-    .controller('View3Ctrl',['$scope', 'wishFactory', function ($scope, wishFactory) {
-        //$http({
-        //    method: 'GET',
-        //    url: 'adminApi/user'
-        //}).
-        //    success(function (data, status, headers, config) {
-        //        $scope.users = data;
-        //        $scope.wish = data;
-        //        $scope.error = null;
-        //    }).
-        //    error(function (data, status, headers, config) {
-        //        if (status == 401) {
-        //            $scope.error = "You are not authenticated to request these data";
-        //            return;
-        //        }
-        //        $scope.error = data;
-        //    });
-
-
+    .controller('View3Ctrl',['$scope' , 'wishFactory', function ($scope, wishFactory) {
 
             wishFactory.getWish()
                 .success(function (wish) {
@@ -38,17 +20,18 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 });
 
 
-        $scope.createWish = function () {
+        $scope.createWish = function createWish(wish) {
 
-            var wish = {
-                owner: $scope.user,
-                Title: $scope.title,
-                Description: $scope.description,
-                price: $scope.price,
-                Link: $scope.link,
-                bought: false
-            };
-            dataFactory.createWish(wish)
+            //var wish = {
+            //    owner: $scope.user,
+            //    title: $scope.title,
+            //    description: $scope.description,
+            //    price: $scope.price,
+            //    link: $scope.link,
+            //    bought: false
+            //};
+
+            wishFactory.createWish(wish)
                 .success(function () {
                     $scope.status = 'Inserted Customer! Refreshing customer list.';
 
@@ -56,7 +39,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 error(function (error) {
                     $scope.status = 'Unable to insert customer: ' + error.message;
                 });
-
+            $scope.newwish={};
         }
 
     }]);

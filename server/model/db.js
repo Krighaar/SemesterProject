@@ -52,14 +52,13 @@ process.on('SIGINT', function () {
 var usersSchema = new mongoose.Schema({
 
     owner: String,
-    Title: String,
-    Description: String,
+    title: String,
+    description: String,
     price: Number,
-    Link: String,
+    link: String,
     selected: String,
     bought: Boolean
-
-});
+    });
 
 mongoose.model('User', usersSchema, "wishlist");
 
