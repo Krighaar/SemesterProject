@@ -46,9 +46,9 @@ router.post("/", function (req, res, next) {
     })
 
 })
-router.put("/:_id", function (req, res, next) {
+router.put("/", function (req, res, next) {
 
-    var id=req.params._id;
+    var id=req.body._id;
 
     if(typeof global.mongo_error !== "undefined"){
         res.status(500);

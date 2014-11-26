@@ -51,3 +51,15 @@ app.factory('wishFactory', ['$http', function ($http) {
 
     return wishFactory;
 }]);
+
+app.factory('loginFactory', ['$http', function ($http) {
+
+    var url = 'sunnycop.cloudapp.net:8080/';
+    var loginFactory = {};
+
+    loginFactory.login = function (loginJson) {
+        return $http.post(url, loginJson)
+    }
+
+    return loginFactory;
+}]);
