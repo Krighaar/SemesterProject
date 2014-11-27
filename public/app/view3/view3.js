@@ -9,9 +9,57 @@ angular.module('myAppRename.view3', ['ngRoute'])
         });
     }])
 
-    .controller('View3Ctrl',['$scope' , 'wishFactory', function ($scope, wishFactory) {
-$scope.create="Create";
+    .controller('View3Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
+
+        $scope.$apply();
+        wishFactory.getWish()
+            .success(function (wish) {
+                $scope.whises = wish;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+
+        $scope.createWish = function createWish(wish) {
+
+            if ($scope.newWish._id != null) {
+
+                console.log("updated");
+                //commented out because its not working ATM - Peter
+
+
+                //wishFactory.updateWish(wish).success(function () {
+                //    $scope.status = 'Inserted Customer! Refreshing customer list.';
+                //
+                //}).
+                //    error(function (error) {
+                //        $scope.status = 'Unable to insert customer: ' + error.message;
+                //    });
+            }
+            else {
+
+                wishFactory.createWish(wish)
+                    .success(function () {
+                        $scope.status = 'Inserted Customer! Refreshing customer list.';
+
+                    }).
+                    error(function (error) {
+                        $scope.status = 'Unable to insert customer: ' + error.message;
+                    });
+                wishFactory.getWish()
+                    .success(function (wish) {
+                        $scope.whises = wish;
+                    })
+                    .error(function (error) {
+                        $scope.status = 'Unable to load customer data: ' + error.message;
+                    });
+            }
+            $scope.newWish = {};
+        }
+
+        $scope.remove = function remove(userName) {
+            wishFactory.removeWish(userName)
             wishFactory.getWish()
                 .success(function (wish) {
                     $scope.whises = wish;
@@ -19,64 +67,15 @@ $scope.create="Create";
                 .error(function (error) {
                     $scope.status = 'Unable to load customer data: ' + error.message;
                 });
-
-
-        $scope.createWish = function createWish(wish) {
-
-            //var wish = {
-            //    owner: $scope.user,
-            //    title: $scope.title,
-            //    description: $scope.description,
-            //    price: $scope.price,
-            //    link: $scope.link,
-            //    bought: false
-            //};
-
-            wishFactory.createWish(wish)
-                .success(function () {
-                    $scope.status = 'Inserted Customer! Refreshing customer list.';
-
-                }).
-                error(function (error) {
-                    $scope.status = 'Unable to insert customer: ' + error.message;
-                });
-
         }
 
-
-       $scope.editWish=function(wish){
-
-           wishFactory.editWish(wish)
-               .success(function () {
-                   $scope.status = 'Your wish is edited.';
-
-               }).
-               error(function (error) {
-                   $scope.status = 'Unable to edit your wish: ' + error.message;
-               });
-
-
-       }
-
-
-        $scope.moveWish=function(wish){
-            $scope.create="Change";
-
-
-         //   $scope.newWish.link=wish.link;
-
-
+        $scope.edit = function (wish) {
+            $scope.newWish = wish;
         }
 
-
-
-
-
-
-
-
-
-    }]);
+    }
+    ])
+;
 
 
 

@@ -13,32 +13,33 @@
     <th>Description</th>
     <th>Owner</th>
     <th>Link</th>
-    <th>Edit</th>
+    <th></th>
     </thead>
     <tbody>
-    <tr ng-model="wish" ng-repeat="wish in whises">
+    <tr ng-repeat="wish in whises">
         <td><input type="checkbox"></td>
         <td>{{wish.title}}</td>
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td>{{wish.owner}}</td>
-        <td>{{wish.link}} <button ng-click="remove($index)">x </button></td>
-        <td> <button class="glyphicon glyphicon-pencil"  ng-click="moveWish(wish)"></button></td>
+        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
+        <td><button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
     </tr>
     </tbody>
 </table>
 <h4>Add wish</h4>
 <br/>
-<input type="text" ng-model="newWish.title" placeholder="Title">
-<input type="text" ng-model="newWish.description" placeholder="Description">
-<input type="text" ng-model="newWish.owner" placeholder="Owner">
-<input type="number" ng-model="newWish.price" placeholder="Price">
-<input type="text" ng-model="newWish.user" placeholder="User">
-<input type="text" ng-model="newWish.link" placeholder="Link">
-<button class="btn btn-default" ng-model="newWish" ng-click="createWish(newWish)">{{create}}</button>
+<input type="text" ng-model="newWish.title" placeholder="Title" id="title">
+<input type="text" ng-model="newWish.description" placeholder="Description" id="description">
+<input type="text" ng-model="newWish.owner" placeholder="Owner" id="owner">
+<input type="number" ng-model="newWish.price" placeholder="Price" id="price">
+<input type="text" ng-model="newWish.owner" placeholder="User" id="owner">
+<input type="text" ng-model="newWish.link" placeholder="Link" id="link">
+<button class="btn btn-default" ng-model="newWish" ng-click="createWish(newWish)">Create</button>
 
 <h4>Testing the checkbox</h4>
-
+<br/>
+<button class="btn btn-default" ng-model="newWish.link">Add to to buy list</button>
 <br/>
         <h4>TO BUY</h4>
 <table class="table table-striped">
