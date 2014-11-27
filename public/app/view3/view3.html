@@ -13,6 +13,7 @@
     <th>Description</th>
     <th>Owner</th>
     <th>Link</th>
+    <th></th>
     </thead>
     <tbody>
     <tr ng-repeat="wish in whises">
@@ -21,7 +22,8 @@
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td>{{wish.owner}}</td>
-        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a> <button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
+        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
+        <td><button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
     </tr>
     </tbody>
 </table>

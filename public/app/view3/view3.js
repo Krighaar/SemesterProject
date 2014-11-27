@@ -12,6 +12,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
     .controller('View3Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
 
+        $scope.$apply();
         wishFactory.getWish()
             .success(function (wish) {
                 $scope.whises = wish;
@@ -25,7 +26,9 @@ angular.module('myAppRename.view3', ['ngRoute'])
             if ($scope.newWish._id != null) {
 
                 console.log("updated");
-                //commented out because its not working ATM - Eter
+                //commented out because its not working ATM - Peter
+
+
                 //wishFactory.updateWish(wish).success(function () {
                 //    $scope.status = 'Inserted Customer! Refreshing customer list.';
                 //
