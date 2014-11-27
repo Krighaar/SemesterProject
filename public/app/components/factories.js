@@ -54,10 +54,11 @@ app.factory('wishFactory', ['$http', function ($http) {
 
 app.factory('loginFactory', ['$http', function ($http) {
 
-    var url = 'sunnycop.cloudapp.net:8080/';
+    var url = 'sunnycop.cloudapp.net:9876/';
     var loginFactory = {};
 
     loginFactory.login = function (loginJson) {
+        console.log(loginJson)
         return $http.post(url, loginJson)
     }
 
