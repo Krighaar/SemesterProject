@@ -16,7 +16,7 @@ router.post('/authenticate', function (req, res) {
    // if (req.body.username === 'student' && req.body.password === 'test') {
         console.log("req.body2:");
         console.log( JSON.stringify(req.body));
-
+//
     //xmlhttp.onreadystatechange=function()
     //{
     //    if (xmlhttp.readyState==4 && xmlhttp.status==200)
