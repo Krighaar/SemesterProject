@@ -36,22 +36,22 @@ angular.module('myAppRename.controllers', []).
         .success(function (data, status, headers, config) {
           $location.path("/view1");
             console.log("success")
-          //$window.sessionStorage.token = data.token;
-          //$scope.isAuthenticated = true;
-          //var encodedProfile = data.token.split('.')[1];
-          //var profile = JSON.parse(url_base64_decode(encodedProfile));
-          //$scope.username = profile.username;
-          //$scope.isAdmin = profile.role == "admin";
-          //$scope.isUser = !$scope.isAdmin;
-          //$scope.error = null;
+          $window.sessionStorage.token = data.token;
+          $scope.isAuthenticated = true;
+          var encodedProfile = data.token.split('.')[1];
+          var profile = JSON.parse(url_base64_decode(encodedProfile));
+          $scope.username = profile.username;
+          $scope.isAdmin = profile.role == "admin";
+          $scope.isUser = !$scope.isAdmin;
+          $scope.error = null;
         })
         .error(function (data, status, headers, config) {
             console.log("failed")
-          // Erase the token if the user fails to log in
-          //delete $window.sessionStorage.token;
-          //$scope.isAuthenticated = false;
-          //
-          //$scope.error = 'You failed to login. Invalid User or Password';
+          //Erase the token if the user fails to log in
+          delete $window.sessionStorage.token;
+          $scope.isAuthenticated = false;
+
+          $scope.error = 'You failed to login. Invalid User or Password';
         });
     };
 

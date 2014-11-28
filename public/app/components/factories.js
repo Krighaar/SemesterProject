@@ -48,6 +48,9 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.updateWish=function(wish) {
         return $http.put(urlBase,wish);
     }
+    wishFactory.getFriends=function() {
+        return $http.get(urlBase+'/friends');
+    }
 
     return wishFactory;
 }]);

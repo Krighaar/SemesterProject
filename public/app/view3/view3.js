@@ -76,6 +76,3 @@ angular.module('myAppRename.view3', ['ngRoute'])
     }
     ])
 ;
-
-
-
