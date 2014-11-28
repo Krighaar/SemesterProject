@@ -12,6 +12,17 @@ angular.module('myAppRename.view3', ['ngRoute'])
     .controller('View3Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
 
+        $scope.moveFromToList = function getCheckboxes() {
+            console.log("gets inside function");
+            var checkedValue = null;
+            var inputElements = document.getElementsByClassName('checkboxWishlist');
+            for (var i = 0; inputElements[i]; ++i) {
+                if (inputElements[i].checked) {
+                    checkedValue = inputElements[i].value;
+                    console.log(inputElements[i]);
+                }
+            }
+        }
         $scope.$apply();
         wishFactory.getWish()
             .success(function (wish) {
