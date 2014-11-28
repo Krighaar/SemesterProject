@@ -1,9 +1,22 @@
 <h1>Super users!</h1>
 
+<p>Welcome dear super user: {{user.userName}}</p>
 
-<select>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="mercedes">Mercedes</option>
-    <option value="audi">Audi</option>
+<select ng-model="Sel" ng-change="update()" >
+
+
+    <option  ng-repeat=" friends in fList" value="{{friends.owner}}">{{friends.owner}}</option>
 </select>
+
+
+        <p>You have selected: {{Sel}}</p>
+        <li ng-repeat="wish in friend">{{wish.title}}</li>
+
+
+<select ng-options="size as size.owner for size in fList"
+ng-model="item" ng-change="update()"></select>
+
+        <p>{{whi.title}}</p>
+
+
+<!--<li ng-model="item" ng-repeat="wish in whises ">{{wish}}</li>-->
