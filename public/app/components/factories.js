@@ -36,11 +36,15 @@ app.factory('wishFactory', ['$http', function ($http) {
     var urlBase = '/adminApi';
     var wishFactory = {};
 
+    wishFactory.getUser = function(userName){
+        return $http.get(urlBase+ '/findUser/'+userName)
+    }
+
     wishFactory.createWish = function (wish) {
         return $http.post(urlBase, wish)
     }
     wishFactory.getWish = function () {
-        return $http.get(urlBase + '/user')
+        return $http.get(urlBase + '/wish')
     }
     wishFactory.removeWish=function(wish) {
         return $http.delete(urlBase +'/'+wish)
@@ -48,8 +52,16 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.updateWish=function(wish) {
         return $http.put(urlBase,wish);
     }
-    wishFactory.getFriends=function() {
+    wishFactory.getFriendsList=function() {
         return $http.get(urlBase+'/friends');
+    }
+
+    wishFactory.getFriends=function(id) {
+        return $http.get(urlBase +'/friends/'+id)
+    }
+
+    wishFactory.getWishFromUser = function(id) {
+        return $http.get(urlBase +'/wish/'+id)
     }
 
     return wishFactory;

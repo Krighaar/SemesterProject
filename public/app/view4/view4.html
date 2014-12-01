@@ -1,22 +1,48 @@
 <h1>Super users!</h1>
 
 <p>Welcome dear super user: {{user.userName}}</p>
-
-<select ng-model="Sel" ng-change="update()" >
-
-
-    <option  ng-repeat=" friends in fList" value="{{friends.owner}}">{{friends.owner}}</option>
+{{status}}
+<select ng-model="friendSelected" ng-change="update()" >
+    <option   ng-repeat=" wish in wishes" value="{{wish.user}}">{{wish.user}}</option>
 </select>
 
+<ol>
+      <li ng-repeat="f in userInScope">{{f.userName}} {{f._id}}</li>
+</ol>
 
-        <p>You have selected: {{Sel}}</p>
-        <li ng-repeat="wish in friend">{{wish.title}}</li>
+<h2> wish for: {{friendSelected}}</h2>
 
+<br/>
+<br/>
+<br/>
+<br/>
+<table class=" table table-striped">
+    <thead>
+    <th>Bought</th>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th>Link</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wish in friendsWishes">
+        <td><input type="checkbox" class="checkboxWishlist" id={{wish._id}}></td>
+        <td>{{wish.title}}</td>
+        <td>{{wish.price}}</td>
+        <td>{{wish.description}}</td>
+        <td>{{friendSelected}}</td>
+        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
+        <td><button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
+    </tr>
+    </tbody>
+</table>
 
-<select ng-options="size as size.owner for size in fList"
-ng-model="item" ng-change="update()"></select>
+<!--<select ng-options="size as size.owner for size in fList"-->
+<!--ng-model="item" ng-change="update()"></select>-->
 
-        <p>{{whi.title}}</p>
+        <!--<p>{{whi.title}}</p>-->
 
 
 <!--<li ng-model="item" ng-repeat="wish in whises ">{{wish}}</li>-->

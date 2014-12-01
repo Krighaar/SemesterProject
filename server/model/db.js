@@ -49,16 +49,39 @@ process.on('SIGINT', function () {
 
 /** User SCHEMA **/
 /** Replace this Schema with your own(s) **/
+//var usersSchema = new mongoose.Schema({
+//
+//    owner: String,
+//    title: String,
+//    description: String,
+//    price: Number,
+//    link: String,
+//    selected: String,
+//    bought: Boolean
+//    });
+//
+//mongoose.model('User', usersSchema, "wishlist");
+
 var usersSchema = new mongoose.Schema({
 
-    owner: String,
-    title: String,
-    description: String,
-    price: Number,
-    link: String,
-    selected: String,
-    bought: Boolean
-    });
+    "userName": String,
+    "wishes": [
+        {
+            "Title": String,
+            "Description": String,
+            "Size": String,
+            "Price": Number,
+            "Link": String,
+            "Bought": Boolean,
+            "Buyer": String
+        }
+    ],
+    "friends": [
+        {
 
-mongoose.model('User', usersSchema, "wishlist");
+            "user": String
+        }
+    ]
+});
 
+mongoose.model('User', usersSchema, "user");
