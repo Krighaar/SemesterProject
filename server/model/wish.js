@@ -63,7 +63,7 @@ function addWish(id,wish,callback){
     console.log("creating wish for id: "+id)
     console.log("creating wish: "+JSON.stringify(wish));
 
-    user.findByIdAndUpdate(id,{ $push: {'wishes':wish}},{safe:true,upsert:true}, function(err, model) {
+    user.update({_id:id},{ $push: {'wishes':wish}},{safe:true,upsert:true}, function(err, model) {
         console.log("inside update")
         if (err) {
             return callback(err);

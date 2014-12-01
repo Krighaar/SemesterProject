@@ -67,13 +67,13 @@ var usersSchema = new mongoose.Schema({
     userName: String,
     wishes: [
         {
-            Title: String,
-            Description: String,
-            Size: String,
-            Price: Number,
-            Link: String,
-            Bought: Boolean,
-            Buyer: String
+            title: String,
+            description: String,
+            size: String,
+            price: Number,
+            link: String,
+            bought: Boolean,
+            buyer: String
         }
     ],
     friends: [
