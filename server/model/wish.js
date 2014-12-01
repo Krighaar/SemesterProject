@@ -61,15 +61,15 @@ function getFriends(id, callback) {
 //update wish
 function addWish(id,wish,callback){
     console.log("creating wish for id: "+id)
-    console.log("creating wish: "+wish)
+    console.log("creating wish: "+JSON.stringify(wish));
 
-    user.update({_id: id},{ $set: {'wishes': wish}}), function(err, user) {
+    user.findByIdAndUpdate(id,{ $push: {'wishes':wish}},{safe:true,upsert:true}, function(err, model) {
         console.log("inside update")
         if (err) {
             return callback(err);
         }
-        callback(null, user)
-    }
+        callback(null, model);
+    })
 
 }
 

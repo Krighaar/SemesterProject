@@ -232,8 +232,9 @@ router.get('/friends/:id', function (req, res) {
 router.put('/:id', function (req, res) {
 
     var wish = req.body
+    console.log(req.body)
 
-    facade.addWish(req.params.id, wish, function (err, user) {
+    facade.addWish(req.params.id,  req.body, function (err, user) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);

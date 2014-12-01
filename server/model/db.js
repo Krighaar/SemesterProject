@@ -64,22 +64,22 @@ process.on('SIGINT', function () {
 
 var usersSchema = new mongoose.Schema({
 
-    "userName": String,
-    "wishes": [
+    userName: String,
+    wishes: [
         {
-            "Title": String,
-            "Description": String,
-            "Size": String,
-            "Price": Number,
-            "Link": String,
-            "Bought": Boolean,
-            "Buyer": String
+            Title: String,
+            Description: String,
+            Size: String,
+            Price: Number,
+            Link: String,
+            Bought: Boolean,
+            Buyer: String
         }
     ],
-    "friends": [
+    friends: [
         {
 
-            "user": String
+            user: String
         }
     ]
 });
