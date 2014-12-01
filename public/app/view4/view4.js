@@ -79,7 +79,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
             wishFactory.getUser($scope.friend).success(function (user) {
                 console.log(user)
                 $scope.userId = user[0]._id;
-                console.log($scope.userId);
+                console.log("insinde upate id: "+$scope.userId);
 
                 wishFactory.getWishFromUser($scope.userId).success(function (wishes) {
                     console.log("printing wishes" + wishes[0].title);

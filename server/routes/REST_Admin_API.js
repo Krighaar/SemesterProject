@@ -3,11 +3,13 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
+var facade = require('../model/wish')
 
 //using new Databae
 //get ALL users
 router.get('/', function (req, res) {
-    user.find({},(function (err, users) {
+
+    facade.getUsers(function (err, users) {
         if (err) {
             res.status(err.status || 500);
             res.send(JSON.stringify({error: err.toString()}));
@@ -16,105 +18,116 @@ router.get('/', function (req, res) {
         res.header("Content-type", "application/json");
 
         res.end(JSON.stringify(users));
-    }))
+    })
+
 });
 
+/*
+ NOT USED IN NEW DB
+ */
 
 //Using new Database
 //get a user from Database
-router.get('/user', function (req, res) {
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-        return;
-    }
-    user.find({}, 'userName', function (err, users) {
-        if (err) {
-            res.status(err.status || 400);
-            res.end(JSON.stringify({error: err.toString()}));
-            return;
-        }
-        res.header("Content-type", "application/json");
-        res.end(JSON.stringify(users));
-    });
-});
+//router.get('/user', function (req, res) {
+//   facade.getUser(function (err,user))
+//});
+
 
 // using new user database
 // get All wishes from all users!
 router.get('/wish', function (req, res) {
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-        return;
-    }
-    user.distinct('wishes', function (err, wishes) {
+
+    facade.getWishes(function (err, wishes) {
         if (err) {
-            res.status(err.status || 400);
-            res.end(JSON.stringify({error: err.toString()}));
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
             return;
         }
         res.header("Content-type", "application/json");
+
         res.end(JSON.stringify(wishes));
-    });
+    })
+
+
 });
 
 // using new user database
 //Get wishes by user id
 router.get('/wish/:id', function (req, res) {
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-        return;
-    }
-    user.distinct('wishes',{_id: req.params.id}, function (err, user) {
+
+    facade.getWishFromUser(req.params.id, function (err, wishes) {
         if (err) {
             res.status(err.status || 500);
-            res.end(JSON.stringify({error: err.toString()}));
+            res.send(JSON.stringify({error: err.toString()}));
             return;
         }
         res.header("Content-type", "application/json");
-        res.end(JSON.stringify(user));
-    });
+        res.end(JSON.stringify(wishes));
+    })
+
 })
 
 
 //find User from UserName
 router.get('/findUser/:userName', function (req, res) {
-    console.log("in rest api findUSer: "+req.params.userName)
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
+
+facade.getUser(req.params.userName, function(err, user){
+    if(err) {
+        res.status(err.status || 500);
+        res.send(JSON.stringify({error: err.toString()}));
         return;
     }
-    user.find({userName: req.params.userName}, function (err, user) {
-        if (err) {
-            res.status(err.status || 500);
-            res.end(JSON.stringify({error: err.toString()}));
-            return;
-        }
-        res.header("Content-type", "application/json");
-        res.end(JSON.stringify(user));
-    });
+    res.header("Content-type", "application/json");
+    res.end(JSON.stringify(user));
 })
 
+    //console.log("in rest api findUSer: "+req.params.userName)
+    //if (typeof global.mongo_error !== "undefined") {
+    //    res.status(500);
+    //    res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
+    //    return;
+    //}
+    //user.find({userName: req.params.userName}, function (err, user) {
+    //    if (err) {
+    //        res.status(err.status || 500);
+    //        res.end(JSON.stringify({error: err.toString()}));
+    //        return;
+    //    }
+    //    res.header("Content-type", "application/json");
+    //    res.end(JSON.stringify(user));
+    //});
+})
 
+//get Friend list
 router.get('/friends/:id', function (req, res) {
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-        return;
-    }
 
-    user.distinct('friends',{_id:req.params.id} ,function(err, output){
-        if(err){
-            res.status(err.status || 400);
-            res.end(JSON.stringify({error: err.toString()}));
+    facade.getFriends(req.params.id, function (err, friends) {
+        if (err) {
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
             return;
         }
-
         res.header("Content-type", "application/json");
-        res.end(JSON.stringify(output));
-    });
+        res.end(JSON.stringify(friends));
+    })
+
+
+    //if (typeof global.mongo_error !== "undefined") {
+    //    res.status(500);
+    //    res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
+    //    return;
+    //}
+    //
+    //user.distinct('friends',{_id:req.params.id} ,function(err, output){
+    //    if(err){
+    //        res.status(err.status || 400);
+    //        res.end(JSON.stringify({error: err.toString()}));
+    //        return;
+    //    }
+    //
+    //    res.header("Content-type", "application/json");
+    //    res.end(JSON.stringify(output));
+    //});
 });
 
 //get wish from friend on friendlist
@@ -137,57 +150,66 @@ router.get('/friends/:id', function (req, res) {
 //    });
 //});
 
-router.post("/", function (req, res, next) {
+//Not used with new DB - can be deleted PETER
+/*
+ router.post("/", function (req, res, next) {
 
-    var wish = {
+ var wish = {
 
-        owner: req.body.owner,
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        link: req.body.link,
-        bought: false,
-        selected: ""
-    }
-    user.create(wish, function (err, newWish) {
-        if (err) {
-            res.status(err.status || 500);
-            res.send(JSON.stringify({error: err.toString()}));
-            return;
-        }
-        console.log("New Wish added: " + newWish);
-        res.header("Content-type", "application/json");
-        res.end(JSON.stringify(newWish));
-    })
-
-})
-router.put("/", function (req, res, next) {
-
-    var id=req.body._id;
-
-    if(typeof global.mongo_error !== "undefined"){
-        res.status(500);
-        res.end("Error: "+global.mongo_error+" To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
-        return;
-    }
+ owner: req.body.owner,
+ title: req.body.title,
+ description: req.body.description,
+ price: req.body.price,
+ link: req.body.link,
+ bought: false,
+ selected: ""
+ }
 
 
+ user.create(wish, function (err, newWish) {
+ if (err) {
+ res.status(err.status || 500);
+ res.send(JSON.stringify({error: err.toString()}));
+ return;
+ }
+ console.log("New Wish added: " + newWish);
+ res.header("Content-type", "application/json");
+ res.end(JSON.stringify(newWish));
+ })
 
-    user.findByIdAndUpdate(id,req.body,function (err, changedWish) {
-        if (err) {
-            res.status(err.status || 400);
-            res.end(JSON.stringify({error: err.toString()}));
-            return;
-        }
-        res.header("Content-type","application/json");
+ })
+ */
+//Not used with new DB - can be deleted PETER
+/*
+ router.put("/", function (req, res, next) {
 
-        res.end(JSON.stringify(changedWish));
+ var id=req.body._id;
 
-    })
+ if(typeof global.mongo_error !== "undefined"){
+ res.status(500);
+ res.end("Error: "+global.mongo_error+" To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
+ return;
+ }
 
 
 
-})
+ user.findByIdAndUpdate(id,req.body,function (err, changedWish) {
+ if (err) {
+ res.status(err.status || 400);
+ res.end(JSON.stringify({error: err.toString()}));
+ return;
+ }
+ res.header("Content-type","application/json");
+
+ res.end(JSON.stringify(changedWish));
+
+ })
+
+
+
+ })
+
+ */
 
 //router.delete('/:id', function (req, res) {
 //    if (typeof global.mongo_error !== "undefined") {
@@ -206,16 +228,12 @@ router.put("/", function (req, res, next) {
 //    });
 //})
 
-router.put('/:id', function(req, res){
-    if (typeof global.mongo_error !== "undefined") {
-        res.status(500);
-        res.end("Error: " + global.mongo_error);
-        return;
-    }
-    console.log(req.params.id)
-    console.log(req.params.title)
+//update a wish - not working ATM
+router.put('/:id', function (req, res) {
 
-    user.update({_id: req.params.id},{ $set: {'wishes': 'req.body.Title'}}), function(err, user) {
+    var wish = req.body
+
+    facade.addWish(req.params.id, wish, function (err, user) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);
@@ -224,7 +242,8 @@ router.put('/:id', function(req, res){
         }
         res.header("Content-type", "application/json");
         res.end(JSON.stringify(user));
-    }
+    })
+
 })
 
 
