@@ -1,0 +1,41 @@
+<h1>Super users!</h1>
+        <!--<div ng-hide="isSuper" class="ng-hide">-->
+
+
+
+<p>Welcome dear super user: {{username}}</p>
+
+{{status}}
+<!--<select ng-model="friendSelected" ng-change="update()" >-->
+    <!--<option   ng-repeat=" wish in wishes" value="{{wish.user}}">{{wish.user}}</option>-->
+<!--</select>-->
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<table class=" table table-striped">
+    <thead>
+    <th>ID</th>
+    <th>username</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="u in allUsers">
+        <td>{{u._id}}</td>
+        <td>{{u.userName}}</td>
+
+        <td><button ng-click="removeUser(u._id)" class="glyphicon glyphicon-trash"></button></td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<select ng-options="size as size.owner for size in fList"-->
+<!--ng-model="item" ng-change="update()"></select>-->
+
+        <!--<p>{{whi.title}}</p>-->
+
+
+<!--<li ng-model="item" ng-repeat="wish in whises ">{{wish}}</li>-->

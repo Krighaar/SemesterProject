@@ -67,15 +67,22 @@ app.factory('wishFactory', ['$http', function ($http) {
     return wishFactory;
 }]);
 
-app.factory('loginFactory', ['$http', function ($http) {
+app.factory('userFactory', ['$http', function ($http) {
 
-    var url = 'sunnycop.cloudapp.net:9876/';
-    var loginFactory = {};
-
-    loginFactory.login = function (loginJson) {
-        console.log(loginJson)
-        return $http.post(url, loginJson)
+    var urlJAVAREST = 'sunnycop.cloudapp.net:9876/user';
+    var urlBase = 'adminApi/userAdmin';
+    var userFactory = {};
+    userFactory.getAllUsers = function(){
+        return $http.get("/adminApi")
+    }
+    userFactory.removeUser = function(userjson){
+        return $http.delete(urlBase,userjson)
     }
 
-    return loginFactory;
+    userFactory.addUser = function(userjson){
+        return $http.post(urlBase,userjson)
+    }
+
+
+    return userFactory;
 }]);

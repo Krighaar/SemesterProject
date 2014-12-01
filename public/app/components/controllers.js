@@ -1,5 +1,5 @@
 angular.module('myAppRename.controllers', []).
-  controller('AppCtrl', function ($scope, $http, $window,$location,loginFactory) {
+  controller('AppCtrl', function ($scope, $http, $window,$location) {
 
     function url_base64_decode(str) {
       var output = str.replace('-', '+').replace('_', '/');
@@ -29,7 +29,6 @@ angular.module('myAppRename.controllers', []).
     delete $window.sessionStorage.token; //Erases token when reloading page, temporary fix for authentication problems
 
     $scope.submit = function () {
-
 
       $http
         .post('/authenticate', $scope.user)

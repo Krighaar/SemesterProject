@@ -9,24 +9,13 @@ var role;
 router.get('/', function (req, res) {
     res.redirect("app/index.html")
 });
-
 router.post('/authenticate', function (req, res) {
     //TODO: Go and get UserName Password from "somewhere"
     //if is invalid, return 401
     // if (req.body.username === 'student' && req.body.password === 'test') {
-    console.log("req.body2:");
+    console.log("req.body:");
     console.log(JSON.stringify(req.body));
-//
-    //xmlhttp.onreadystatechange=function()
-    //{
-    //    if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    //    {
-    //        document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-    //    }
-    //} ;
-    //xmlhttp.open("POST","http://sunnycop.cloudapp.net:9876/",true);
-    //xmlhttp.setRequestHeader("Content-type","application/json");
-    //xmlhttp.send("logged in");
+
 
     var post_options = {
         host: 'sunnycop.cloudapp.net',
@@ -89,11 +78,13 @@ router.post('/authenticate', function (req, res) {
         return;
     }
     else {
+        $scope.user=null;
         res.status(401).send('Wrong user or password');
         return;
     }
 })
 ;
+
 
 
 //Get Partials made as Views

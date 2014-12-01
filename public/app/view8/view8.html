@@ -1,0 +1,15 @@
+<form>
+
+    <!--<div><textarea name="source" style="width: 716px; height: 200px; border-width: 1px; padding: 5px;"></textarea></div>-->
+
+    <!--<div><input type="text" name="result" style="width: 716px; border-width: 1px; padding: 5px; font-family: courier" /></div>-->
+    <!--<div><input type="button" value="Calculate SHA256 hash" style="width: 200px; border-width: 1px; padding: 5px;" onclick="this.form.result.value = SHA256(this.form.source.value); this.form.result.select(); this.form.result.focus();" /></div>-->
+    <!--</form>-->
+
+
+<input ng-model="addingUser.userName">
+<input name="pas" >
+    <button class="button btn-success" ng-click="addUser(); addUserJava();" onclick= "this.form.result.value=SHA256(this.form.pas.value);">Create</button>
+<input name="result" ng-model="addingUser.pw" style="visibility: hidden">
+    </form>
+

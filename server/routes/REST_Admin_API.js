@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
 var facade = require('../model/wish')
+var userfacade = require('../model/user')
 
 //using new Databae
 //get ALL users
@@ -71,17 +72,32 @@ router.get('/wish/:id', function (req, res) {
 //find User from UserName
 router.get('/findUser/:userName', function (req, res) {
 
-facade.getUser(req.params.userName, function(err, user){
-    if(err) {
-        res.status(err.status || 500);
-        res.send(JSON.stringify({error: err.toString()}));
-        return;
-    }
-    res.header("Content-type", "application/json");
-    res.end(JSON.stringify(user));
+    facade.getUser(req.params.userName, function (err, user) {
+        if (err) {
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
 })
 
-    //console.log("in rest api findUSer: "+req.params.userName)
+router.post('/userAdmin', function (req, res, next) {
+
+        userfacade.addNewUser(req.body, function(err, user){
+            if(err) {
+                res.status(err.status || 500);
+                res.send(JSON.stringify({error: err.toString()}));
+                return;
+            }
+            res.header("Content-type", "application/json");
+            res.end(JSON.stringify(user));
+        })
+
+    })
+
+        //console.log("in rest api findUSer: "+req.params.userName)
     //if (typeof global.mongo_error !== "undefined") {
     //    res.status(500);
     //    res.end("Error: " + global.mongo_error + " To see a list of users here, make sure you have started the database and set up some test users (see model-->db.js for instructions)");
@@ -96,7 +112,6 @@ facade.getUser(req.params.userName, function(err, user){
     //    res.header("Content-type", "application/json");
     //    res.end(JSON.stringify(user));
     //});
-})
 
 //get Friend list
 router.get('/friends/:id', function (req, res) {
@@ -238,7 +253,7 @@ router.put('/:id', function (req, res) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);
-            res.end(JSON.stringfy({error: err.toString()}));
+            res.end(JSON.stringify({error: err.toString()}));
             return;
         }
         res.header("Content-type", "application/json");
