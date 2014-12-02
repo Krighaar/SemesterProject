@@ -40,17 +40,15 @@ app.factory('wishFactory', ['$http', function ($http) {
         return $http.get(urlBase+ '/findUser/'+userName)
     }
 
-    wishFactory.createWish = function (wish) {
-        return $http.post(urlBase, wish)
-    }
     wishFactory.getWish = function () {
         return $http.get(urlBase + '/wish')
     }
     wishFactory.removeWish=function(wish) {
         return $http.delete(urlBase +'/'+wish)
     }
-    wishFactory.updateWish=function(wish) {
-        return $http.put(urlBase,wish);
+    wishFactory.createWish=function(wish, id) {
+        console.log(id)
+        return $http.put(urlBase+'/'+id,wish);
     }
     wishFactory.getFriendsList=function() {
         return $http.get(urlBase+'/friends');

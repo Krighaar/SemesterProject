@@ -165,35 +165,7 @@ router.get('/friends/:id', function (req, res) {
 //    });
 //});
 
-//Not used with new DB - can be deleted PETER
-/*
- router.post("/", function (req, res, next) {
 
- var wish = {
-
- owner: req.body.owner,
- title: req.body.title,
- description: req.body.description,
- price: req.body.price,
- link: req.body.link,
- bought: false,
- selected: ""
- }
-
-
- user.create(wish, function (err, newWish) {
- if (err) {
- res.status(err.status || 500);
- res.send(JSON.stringify({error: err.toString()}));
- return;
- }
- console.log("New Wish added: " + newWish);
- res.header("Content-type", "application/json");
- res.end(JSON.stringify(newWish));
- })
-
- })
- */
 //Not used with new DB - can be deleted PETER
 /*
  router.put("/", function (req, res, next) {

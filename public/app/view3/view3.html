@@ -7,7 +7,6 @@
 </p>
 <table class=" table table-striped">
     <thead>
-    <th>Bought</th>
     <th>Title</th>
     <th>Price</th>
     <th>Description</th>
@@ -17,13 +16,12 @@
     </thead>
     <tbody>
     <tr ng-repeat="wish in whises">
-        <td><input type="checkbox" class="checkboxWishlist" id={{wish._id}}></td>
         <td>{{wish.title}}</td>
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td>{{wish.owner}}</td>
         <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
-        <td><button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
+        <td><button ng-click="remove(wish._id)" class="glyphicon glyphicon-trash"> Delete</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button></td>
     </tr>
     </tbody>
 </table>
@@ -31,17 +29,14 @@
 <br/>
 <input type="text" ng-model="newWish.title" placeholder="Title" id="title">
 <input type="text" ng-model="newWish.description" placeholder="Description" id="description">
-<input type="text" ng-model="newWish.owner" placeholder="Owner" id="owner">
 <input type="number" ng-model="newWish.price" placeholder="Price" id="price">
-<input type="text" ng-model="newWish.owner" placeholder="User" id="owner">
 <input type="text" ng-model="newWish.link" placeholder="Link" id="link">
 <button class="btn btn-default" ng-model="newWish" ng-click="createWish(newWish)">Create</button>
 
-<h4>Testing the checkbox</h4>
 <!--<br/>-->
-<button class="btn btn-default" ng-model="newWish.link" ng-click="moveFromToList()">Add to to buy list</button>
+<!--<button class="btn btn-default" ng-model="newWish.link" ng-click="moveFromToList()">Add to to buy list</button>-->
 <!--<br/>-->
-        <h4>TO BUY</h4>
+        <!--<h4>TO BUY</h4>-->
 <!--<table class="table table-striped">-->
     <!--<thead>-->
     <!--<th>Bought</th>-->
