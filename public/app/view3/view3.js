@@ -43,6 +43,9 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 //Creating wishes isn't finished, needs a lot of polishing, existing bugs
 
 
+            }
+            else {
+
                 wishFactory.createWish(wish, '54785877e4b03d53943a0f58').success(function () {
                     $scope.status = 'Inserted Customer! Refreshing customer list.';
 
@@ -50,9 +53,6 @@ angular.module('myAppRename.view3', ['ngRoute'])
                     error(function (error) {
                         $scope.status = 'Unable to insert customer: ' + error.message;
                     });
-            }
-            else {
-
 //                wishFactory.createWish(wish)
 //                    .success(function () {
 //                        $scope.status = 'Inserted Customer! Refreshing customer list.';
