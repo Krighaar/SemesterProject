@@ -79,7 +79,7 @@ function addWish(id, wish, callback) {
 //Get wishes by wishID
 function getWishByID(wishID, callback) {
     console.log("inside getWIshID " + wishID)
-    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { buyer: 'jason borne' }}, function (err, wishes) {
+    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { 'wishes.$.buyer': 'new buyer' }},{safe: true, upsert: true}, function (err, wishes) {
         if (err) {
             return callback(err)
         }

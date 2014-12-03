@@ -55,7 +55,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
             }
             else {
 
-                wishFactory.createWish(wish, $scope.idUserLoggedIn).success(function () {
+                wishFactory.createWish(wish, idUserLoggedIn).success(function () {
                     $scope.status = 'Inserted Customer! Refreshing customer list.';
 
                 }).
