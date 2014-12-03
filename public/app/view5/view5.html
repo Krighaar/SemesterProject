@@ -1,5 +1,14 @@
+<div ng-show="!isSuper">
+
+    <h1>Admin page</h1>
+<p>This page is available for Admin only. Please sign in as an Admin.</p>
+</div>
+
+
+    <div ng-show="isSuper">
+
 <h1>Super users!</h1>
-        <!--<div ng-hide="isSuper" class="ng-hide">-->
+
 
 
 
@@ -27,11 +36,11 @@
         <td>{{u._id}}</td>
         <td>{{u.userName}}</td>
 
-        <td><button ng-click="removeUser(u._id)" class="glyphicon glyphicon-trash"></button></td>
+        <td><button ng-click="removeUser(u);" class="glyphicon glyphicon-trash"></button></td>
     </tr>
     </tbody>
 </table>
-
+</div>
 <!--<select ng-options="size as size.owner for size in fList"-->
 <!--ng-model="item" ng-change="update()"></select>-->
 

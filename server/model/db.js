@@ -64,7 +64,7 @@ process.on('SIGINT', function () {
 
 var usersSchema = new mongoose.Schema({
 
-    userName: String,
+    userName: {type:String, unique: true },
     wishes: [
         {
             title: String,

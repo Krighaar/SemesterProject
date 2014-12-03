@@ -26,6 +26,7 @@ angular.module('myAppRename.controllers', []).
     $scope.isUser = false;
     $scope.message = '';
     $scope.error = null;
+      $scope.isSuper=false;
     delete $window.sessionStorage.token; //Erases token when reloading page, temporary fix for authentication problems
 
 
@@ -58,27 +59,14 @@ angular.module('myAppRename.controllers', []).
     };
 
 
-$scope.createUser=function(addinguser){
-  console.log(JSON.stringify(addinguser))
 
-  $http.post("/createUser",addinguser)
-      .success(function(data,status, headers,config){
-
-console.log("success "+JSON.stringify(data))
-
-      })
-      .error(function(data,sutatus, headers, config){
-
-console.log("error")
-      })
-
-
-
-}
     $scope.logout = function () {
       $scope.isAuthenticated = false;
       $scope.isAdmin =false;
       $scope.isUser = false;
+      $scope.username="";
+      $scope.isSuper=false;
+      $scope.user="";
       delete $window.sessionStorage.token;
       $location.path("/view1");
     }

@@ -26,6 +26,41 @@ router.post('/createUser',function(req,res){
 
     var post_req = http.request(post_options, function (res) {
         res.setEncoding('utf8');
+if(res.status=401)
+        res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+
+
+
+        });
+        res.on('error', function(err) {
+            console(err.message)
+
+        ;});
+    });
+
+    // post the data
+    post_req.write(JSON.stringify(req.body));
+    post_req.end();
+
+})
+
+router.delete('/deleteUser',function(req,res){
+    console.log("req.body "+JSON.stringify(req.body))
+
+    var delete_options = {
+        host: 'sunnycop.cloudapp.net',
+        port: '9876',
+        path: '/user',
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+
+        }
+    };
+
+    var delete_req = http.request(delete_options, function (res) {
+        res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('Response: ' + chunk);
 
@@ -36,8 +71,8 @@ router.post('/createUser',function(req,res){
     });
 
     // post the data
-    post_req.write(JSON.stringify(req.body));
-    post_req.end();
+    delete_req.write(JSON.stringify(req.body));
+    delete_req.end();
 
 })
 

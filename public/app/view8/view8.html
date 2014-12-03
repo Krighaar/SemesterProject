@@ -1,16 +1,18 @@
-<form ng-model="addingUser">
-
-    <!--<div><textarea name="source" style="width: 716px; height: 200px; border-width: 1px; padding: 5px;"></textarea></div>-->
-
-    <!--<div><input type="text" name="result" style="width: 716px; border-width: 1px; padding: 5px; font-family: courier" /></div>-->
-    <!--<div><input type="button" value="Calculate SHA256 hash" style="width: 200px; border-width: 1px; padding: 5px;" onclick="this.form.result.value = SHA256(this.form.source.value); this.form.result.select(); this.form.result.focus();" /></div>-->
-    <!--</form>-->
-
-
-<input ng-model="addingUser.userName">
-<input name="pas" type="password" ng-model="addingpw" >
+<h1>Create a new account</h1>
+<div class="container">
+<form ng-model="addingUser"  style="margin-top:50px; width: 250px;">
+    <div class="form-group">
+        <label for="userName">Username:</label>
+        <input type="text" ng-model="addingUser.userName" class="form-control" id="userName" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input name="pas" type="password"   ng-model="addingpw" class="form-control" id="pwd" placeholder="Password">
+    </div>
+    <div class="form-group">
     <button class="button btn-success"  ng-model="addingUser" ng-click="addUser(addingUser); createUser(addingUser);" onkeydown= "this.form.result.value=SHA256(this.form.pas.value);">Create</button>
-<input name="result"  style="visibility: hidden">
+</div>
+        <input name="result"  style="visibility: hidden">
     </form>
 
-{{addingSHA}}
+</div>
