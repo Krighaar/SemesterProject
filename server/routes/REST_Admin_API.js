@@ -97,6 +97,21 @@ router.post('/userAdmin', function (req, res, next) {
 
     })
 
+
+router.delete('/userAdmin/:id', function (req, res, next) {
+var idtodelete= req.params.id;
+    userfacade.deleteUser(idtodelete, function(err, user){
+        if(err) {
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+
         //console.log("in rest api findUSer: "+req.params.userName)
     //if (typeof global.mongo_error !== "undefined") {
     //    res.status(500);
@@ -125,7 +140,19 @@ router.get('/friends/:id', function (req, res) {
         res.header("Content-type", "application/json");
         res.end(JSON.stringify(friends));
     })
+});
+    router.get('/wish/user/:id', function (req, res) {
 
+        facade.getUserByWishID(req.params.id, function (err, user) {
+            if (err) {
+                res.status(err.status || 500);
+                res.send(JSON.stringify({error: err.toString()}));
+                return;
+            }
+            res.header("Content-type", "application/json");
+            res.end(JSON.stringify(user));
+        })
+    });
 
     //if (typeof global.mongo_error !== "undefined") {
     //    res.status(500);
@@ -143,7 +170,7 @@ router.get('/friends/:id', function (req, res) {
     //    res.header("Content-type", "application/json");
     //    res.end(JSON.stringify(output));
     //});
-});
+
 
 //get wish from friend on friendlist
 //router.get('/friends/:fid/:id', function (req, res) {

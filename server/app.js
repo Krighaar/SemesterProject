@@ -8,7 +8,7 @@ var db = require("./model/db");
 var routes = require('./routes/index');
 var adminRest = require('./routes/REST_Admin_API');
 var userRest = require('./routes/REST_Users_API');
-var session = require('express-session');
+//var session = require('express-session');
 
 var expressJwt = require('express-jwt');
 

@@ -65,20 +65,22 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.getWishFromWishId = function(id){
         return $http.get(urlBase +'/wish/wish/'+id)
     }
-
+    wishFactory.getUserFromWishId = function(id){
+        return $http.get(urlBase +'/wish/user/'+id)
+    }
     return wishFactory;
 }]);
 
 app.factory('userFactory', ['$http', function ($http) {
 
-    var urlJAVAREST = 'sunnycop.cloudapp.net:9876/user';
-    var urlBase = 'adminApi/userAdmin';
+
+    var urlBase = 'adminApi/userAdmin/';
     var userFactory = {};
     userFactory.getAllUsers = function(){
         return $http.get("/adminApi")
     }
-    userFactory.removeUser = function(userjson){
-        return $http.delete(urlBase,userjson)
+    userFactory.removeUser = function(id){
+        return $http.delete(urlBase+id)
     }
 
     userFactory.addUser = function(userjson){

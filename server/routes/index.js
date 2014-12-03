@@ -9,12 +9,47 @@ var role;
 router.get('/', function (req, res) {
     res.redirect("app/index.html")
 });
+router.post('/createUser',function(req,res){
+    console.log("req.body "+JSON.stringify(req.body))
+    req.body.role="user";
+
+    var post_options = {
+        host: 'sunnycop.cloudapp.net',
+        port: '9876',
+        path: '/user',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+
+        }
+    };
+
+    var post_req = http.request(post_options, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+
+
+        });
+        res.on('error', function(err) {
+            cosole(err.message)        });
+    });
+
+    // post the data
+    post_req.write(JSON.stringify(req.body));
+    post_req.end();
+
+})
+
+
+
+
 router.post('/authenticate', function (req, res) {
     //TODO: Go and get UserName Password from "somewhere"
     //if is invalid, return 401
     // if (req.body.username === 'student' && req.body.password === 'test') {
-    console.log("req.body:");
-    console.log(JSON.stringify(req.body));
+
+
 
 
     var post_options = {
@@ -39,10 +74,10 @@ router.post('/authenticate', function (req, res) {
                     role = null;
                     break;
                 case 1:
-                    role = "user";
+                    role = "admin";
                     break;
                 case 2:
-                    role = "admin";
+                    role = "user";
                     break;
                 default:
                     role = null;
@@ -60,7 +95,7 @@ router.post('/authenticate', function (req, res) {
 
 
     var profile = {
-        username: req.body.username,
+        username: req.body.userName,
         role: role
     };
 

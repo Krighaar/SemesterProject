@@ -28,8 +28,11 @@ angular.module('myAppRename.controllers', []).
     $scope.error = null;
     delete $window.sessionStorage.token; //Erases token when reloading page, temporary fix for authentication problems
 
-    $scope.submit = function () {
 
+
+    $scope.submit = function () {
+      $scope.user.pw =SHA256($scope.user.pw);
+      console.log("req.body.pw "+JSON.stringify($scope.user.pw))
       $http
         .post('/authenticate', $scope.user)
         .success(function (data, status, headers, config) {
@@ -54,6 +57,24 @@ angular.module('myAppRename.controllers', []).
         });
     };
 
+
+$scope.createUser=function(addinguser){
+  console.log(JSON.stringify(addinguser))
+
+  $http.post("/createUser",addinguser)
+      .success(function(data,status, headers,config){
+
+console.log("success "+JSON.stringify(data))
+
+      })
+      .error(function(data,sutatus, headers, config){
+
+console.log("error")
+      })
+
+
+
+}
     $scope.logout = function () {
       $scope.isAuthenticated = false;
       $scope.isAdmin =false;

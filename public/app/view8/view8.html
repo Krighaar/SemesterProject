@@ -1,4 +1,4 @@
-<form>
+<form ng-model="addingUser">
 
     <!--<div><textarea name="source" style="width: 716px; height: 200px; border-width: 1px; padding: 5px;"></textarea></div>-->
 
@@ -8,8 +8,9 @@
 
 
 <input ng-model="addingUser.userName">
-<input name="pas" >
-    <button class="button btn-success" ng-click="addUser(); addUserJava();" onclick= "this.form.result.value=SHA256(this.form.pas.value);">Create</button>
-<input name="result" ng-model="addingUser.pw" style="visibility: hidden">
+<input name="pas" type="password" ng-model="addingpw" >
+    <button class="button btn-success"  ng-model="addingUser" ng-click="addUser(addingUser); createUser(addingUser);" onkeydown= "this.form.result.value=SHA256(this.form.pas.value);">Create</button>
+<input name="result"  style="visibility: hidden">
     </form>
 
+{{addingSHA}}

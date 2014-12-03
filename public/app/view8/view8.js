@@ -11,11 +11,15 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 .controller('View8Ctrl',['$scope', 'userFactory', function ($scope, userFactory) {
 
-      $scope.addUser = function () {
-
-      userFactory.addUser($scope.addingUser).success(function (addeduser) {
+$scope.adddingpw;
+      $scope.addUser = function (addinguser) {
+        addinguser.pw=SHA256($scope.addingpw);
+          console.log(JSON.stringify(addinguser))
+      userFactory.addUser(addinguser).success(function (addeduser) {
         alert("You are added to mongo")
-        console.log(addeduser);
+
+
+
 
       })
     }

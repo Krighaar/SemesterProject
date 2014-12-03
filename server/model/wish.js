@@ -86,6 +86,23 @@ function getWishByID(wishID, callback) {
         callback(null, wishes)
     })
 }
+function getUserByWishID(wishID, callback) {
+    console.log("inside getUserByWishID " + wishID)
+    user.findOne({'wishes._id':wishID},function (err, foundOne) {
+        if (err) {
+            return callback(err)
+        }
+        console.log(JSON.stringify(foundOne))
+            callback(null,foundOne.userName)
+
+            }
+        );
+
+
+
+
+
+}
 
 function updateBuyer(id, buyerUserName, callback) {
     user.update({'wishes.title': id}, {$set: {wishes: {buyer: buyerUserName}}}, function (err, result) {
@@ -116,7 +133,8 @@ module.exports = {
     addWish: addWish,
     getWishByID: getWishByID,
     findById: findbyID,
-    updateBuyer: updateBuyer
+    updateBuyer: updateBuyer,
+    getUserByWishID: getUserByWishID
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories

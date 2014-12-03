@@ -17,10 +17,7 @@ if($scope.isUser)
 
         $scope.list = [];
 
-        //var currentUser =  wishFactory.getUser(user.userName);
-        //var currentUser =  wishFactory.getUser("John");
 
- //       var id = "547858d4e4b03d53943a0f5b";
 
         userFactory.getAllUsers().success(function(users) {
                 $scope.allUsers = users;
@@ -30,11 +27,14 @@ if($scope.isUser)
 
 
 
-      $scope.removeUser=function(json) {
+      $scope.removeUser=function(id) {
 
-          userFactory.removeUser(userID).success(function (deletedUser) {
+          userFactory.removeUser(id).success(function (deletedUser) {
 
-
+              userFactory.getAllUsers().success(function(users) {
+                  alert(deletedUser.userName+" is deleted")
+                  $scope.allUsers = users;
+              })
 
 
 
