@@ -79,7 +79,7 @@ function addWish(id, wish, callback) {
 //Get wishes by wishID
 function getWishByID(wishID, callback) {
     console.log("inside getWIshID " + wishID)
-    user.find({},{'wishes':{_id:wishID}}, {}, function (err, wishes) {
+    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { buyer: 'jason borne' }}, function (err, wishes) {
         if (err) {
             return callback(err)
         }
@@ -89,15 +89,14 @@ function getWishByID(wishID, callback) {
 function getUserByWishID(wishID, callback) {
     console.log("inside getUserByWishID " + wishID)
     user.findOne({'wishes._id':wishID},function (err, foundOne) {
-        if (err) {
-            return callback(err)
-        }
-        console.log(JSON.stringify(foundOne))
+            if (err) {
+                return callback(err)
+            }
+            console.log(JSON.stringify(foundOne))
             callback(null,foundOne.userName)
 
-            }
-        );
-
+        }
+    );
 
 
 

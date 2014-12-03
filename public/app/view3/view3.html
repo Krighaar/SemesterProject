@@ -10,7 +10,6 @@
     <th>Title</th>
     <th>Price</th>
     <th>Description</th>
-    <th>Owner</th>
     <th>Link</th>
     <th></th>
     </thead>
@@ -19,7 +18,6 @@
         <td>{{wish.title}}</td>
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
-        <td>{{wish.owner}}</td>
         <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
         <td><button ng-click="remove(wish._id)" class="glyphicon glyphicon-trash"> Delete</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button></td>
     </tr>
@@ -28,9 +26,10 @@
 <h4>Add wish</h4>
 <br/>
 <input type="text" ng-model="newWish.title" placeholder="Title" id="title">
-<input type="text" ng-model="newWish.description" placeholder="Description" id="description">
 <input type="number" ng-model="newWish.price" placeholder="Price" id="price">
+<input type="text" ng-model="newWish.description" placeholder="Description" id="description">
 <input type="text" ng-model="newWish.link" placeholder="Link" id="link">
+<input type="checkbox" ng-value="false" ng-model="newWish.bought" placeholder="Link" id="bought">
 <button class="btn btn-default" ng-model="newWish" ng-click="createWish(newWish)">Create</button>
 
 <!--<br/>-->
