@@ -68,7 +68,6 @@ router.get('/wish/:id', function (req, res) {
 
 })
 
-
 //find User from UserName
 router.get('/findUser/:userName', function (req, res) {
 
@@ -96,7 +95,6 @@ router.post('/userAdmin', function (req, res, next) {
         })
 
     })
-
 
 router.delete('/userAdmin/:id', function (req, res, next) {
 var idtodelete= req.params.id;

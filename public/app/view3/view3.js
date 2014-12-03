@@ -11,6 +11,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
     .controller('View3Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
+        var idUserLoggedIn;
         //$scope.toBuy = [];
         //$scope.moveFromToList = function getCheckboxes() {
         //    console.log("gets inside function");
@@ -24,14 +25,22 @@ angular.module('myAppRename.view3', ['ngRoute'])
         //        }
         //    }
         //}
-        $scope.$apply();
-        wishFactory.getWishFromUser("54785877e4b03d53943a0f58")
-            .success(function (wish) {
-                $scope.whises = wish;
+            wishFactory.getUser($scope.username).success(function (id){
+                console.log("id of logged in user: "+id[0]._id)
+                idUserLoggedIn = id[0]._id;
+
+                wishFactory.getWishFromUser(idUserLoggedIn)
+                    .success(function (wish) {
+                        $scope.whises = wish;
+                    })
+                    .error(function (error) {
+                        $scope.status = 'Unable to load customer data: ' + error.message;
+                    });
+
+
             })
-            .error(function (error) {
-                $scope.status = 'Unable to load customer data: ' + error.message;
-            });
+
+
 
         $scope.createWish = function createWish(wish) {
 
@@ -46,7 +55,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
             }
             else {
 
-                wishFactory.createWish(wish, '54785877e4b03d53943a0f58').success(function () {
+                wishFactory.createWish(wish, idUserLoggedIn).success(function () {
                     $scope.status = 'Inserted Customer! Refreshing customer list.';
 
                 }).
