@@ -4,7 +4,8 @@
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
 
-//get All users
+
+//get All users - TESTED
 function getUsers(callback) {
     user.find({}, (function (err, users) {
         if (err) {
@@ -14,17 +15,18 @@ function getUsers(callback) {
     }))
 }
 
-//get User from @userName
+//get User from @userName - TESTED
 function getUser(userName, callback) {
 
-    user.find({userName:userName}, function (err, user) {
+    user.find({userName: userName}, function (err, user) {
         if (err) {
-                return callback(err)
+            return callback(err)
         }
-       callback(null,user)
+        callback(null, user)
     });
 }
-//get all wishes for ALL users
+
+//get all wishes for ALL users - TESTED
 function getWishes(callback) {
     console.log("called")
     user.distinct('wishes', function (err, wishes) {
@@ -35,17 +37,17 @@ function getWishes(callback) {
     });
 };
 
-// get wishes from user by userID
-function getWishFromUser(id, callback){
-    user.distinct('wishes',{_id:id}, function (err, wishes) {
+// get wishes from user by userID - TESTED
+function getWishFromUser(id, callback) {
+    user.distinct('wishes', {_id: id}, function (err, wishes) {
         if (err) {
-           return callback(err)
+            return callback(err)
         }
-      callback(null, wishes)
+        callback(null, wishes)
     });
 }
 
-//get Friendlist
+//get Friendlist - TESTED
 function getFriends(id, callback) {
     console.log(id)
     console.log("called")
@@ -58,12 +60,13 @@ function getFriends(id, callback) {
     });
 };
 
+//TODO test this !
 //update wish
-function addWish(id,wish,callback){
-    console.log("creating wish for id: "+id)
-    console.log("creating wish: "+JSON.stringify(wish));
+function addWish(id, wish, callback) {
+    console.log("creating wish for id: " + id)
+    console.log("creating wish: " + JSON.stringify(wish));
 
-    user.update({_id:id},{ $push: {'wishes':wish}},{safe:true,upsert:true}, function(err, model) {
+    user.update({_id: id}, {$push: {'wishes': wish}}, {safe: true, upsert: true}, function (err, model) {
         console.log("inside update")
         if (err) {
             return callback(err);
@@ -73,13 +76,47 @@ function addWish(id,wish,callback){
 
 }
 
+//Get wishes by wishID
+function getWishByID(wishID, callback) {
+    console.log("inside getWIshID " + wishID)
+    user.find({},{'wishes':{_id:wishID}}, {}, function (err, wishes) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, wishes)
+    })
+}
+
+function updateBuyer(id, buyerUserName, callback) {
+    user.update({'wishes.title': id}, {$set: {wishes: {buyer: buyerUserName}}}, function (err, result) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, result)
+    })
+}
+
+
+function findbyID(id, wishTitle, callback) {
+    console.log("inside findID")
+    user.find({}, {'wishes.buyer':wishTitle} ,function (err, wishes) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, wishes)
+    });
+}
+
 module.exports = {
     getUsers: getUsers,
-    getUser:getUser,
+    getUser: getUser,
     getWishes: getWishes,
-    getWishFromUser:getWishFromUser,
+    getWishFromUser: getWishFromUser,
     getFriends: getFriends,
-    addWish:addWish
+    addWish: addWish,
+    getWishByID: getWishByID,
+    findById: findbyID,
+    updateBuyer: updateBuyer
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories

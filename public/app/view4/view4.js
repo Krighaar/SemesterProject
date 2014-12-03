@@ -12,14 +12,34 @@ angular.module('myAppRename.view4', ['ngRoute'])
         });
     }]).controller('View4Ctrl', ['$scope', 'wishFactory', function ($scope, wishFactory) {
 
+        $scope.buyerList = []
+
+        var updateTobuyList = function () {
+            $scope.buyerList = []
+            wishFactory.getWish().success(function (allWishes) {
+                for (var i = 0; i < allWishes.length; i++) {
+                    if (allWishes[i].buyer === 'John') {
+                        console.log("insde for: " + JSON.stringify(allWishes[i]))
+                        $scope.buyerList.push(allWishes[i]);
+                    }
+                }
+            })
+        }
+
         $scope.list = [];
+
+        // get all wishes an filter for buyer
+        updateTobuyList();
+
+        //list used for buyerList
+
 
         //var currentUser =  wishFactory.getUser(user.userName);
         //var currentUser =  wishFactory.getUser("John");
 
         var id = "547858d4e4b03d53943a0f5b";
-        
-        
+
+        //TODO change user:  "john is hardcoded, should be logged in user!
         wishFactory.getUser("John").success(function (user) {
 
             $scope.userInScope = user;
@@ -42,12 +62,38 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 $scope.status = "unable to get wishes"
             })
 
-        $scope.remove = function remove(id,wishTitle) {
-            wishFactory.removeWish(id,wishTitle)
+        $scope.remove = function remove(id, wishTitle) {
+            wishFactory.removeWish(id, wishTitle)
 
         }
 
+        $scope.moveFromToList = function getCheckboxes() {
+            console.log("gets inside function");
+            var checkedValue = null;
 
+            for (var i = 0; $scope.friendsWishes; ++i) {
+                console.log($scope.friendsWishes[i])
+                if ($scope.friendsWishes[i].bought.checked) {
+                    $scope.list.push($scope.friendsWishes[i])
+                }
+            }
+            for (var i = 0; i < $scope.list.length; i++) {
+                console.log($scope.list[i])
+                console.log($scope.list[i].title)
+            }
+        }
+
+        //get all wishes with user a boyer
+
+        $scope.getUserBuyList = function () {
+            $scope.buyerList.clear();
+            for (var i = 0; i < $scope.friendsWishes; i++) {
+                if ($scope.friendsWishes[i].buyer === 'John') {
+                    $scope.buyerList.push(friendsWishes[i]);
+                }
+
+            }
+        }
 
         //wishFactory.getFriends(id).success(function (friends) {
         //    var i = 0;
@@ -79,12 +125,19 @@ angular.module('myAppRename.view4', ['ngRoute'])
             wishFactory.getUser($scope.friend).success(function (user) {
                 console.log(user)
                 $scope.userId = user[0]._id;
-                console.log("insinde upate id: "+$scope.userId);
+                console.log("insinde upate id: " + $scope.userId);
 
                 wishFactory.getWishFromUser($scope.userId).success(function (wishes) {
-                    console.log("printing wishes" + wishes[0].title);
+                    console.log("printing wishes " + wishes[0].buyer);
                     $scope.friendsWishes = wishes;
+
                 })
+
             })
+            updateTobuyList();
+
         }
+
+
+
     }]);

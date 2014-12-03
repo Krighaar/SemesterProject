@@ -218,10 +218,10 @@ router.get('/friends/:id', function (req, res) {
 //update a wish - not working ATM
 router.put('/:id', function (req, res) {
 
-    var wish = req.body
+    var wish = req.body;
     console.log(req.body)
 
-    facade.addWish(req.params.id,  req.body, function (err, user) {
+    facade.addWish(req.params.id, req.body, function (err, user) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);
@@ -234,5 +234,49 @@ router.put('/:id', function (req, res) {
 
 })
 
+//get Wish from WishID
+router.get('/wishes/:id',function(req,res){
+    console.log("inside /wishes/id")
+    facade.getWishByID(req.params.id, function(err, wishes){
+        if(err){
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(wishes));
+    })
+})
+
+router.put('/buy/:id', function (req, res) {
+
+    var buyer = req.body;
+    console.log(req.body)
+
+    facade.updateBuyer(req.params.id, req.body, function (err, user) {
+        console.log("inside update")
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringfy({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+
+router.get('/test/:id/:title', function (req,res) {
+
+    facade.findById(req.params.id,req.params.title, function (err, wish) {
+        if (err) {
+            res.status(err.status || 500)
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(wish));
+    })
+})
 
 module.exports = router;

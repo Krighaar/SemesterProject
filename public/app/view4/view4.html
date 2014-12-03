@@ -2,20 +2,42 @@
 
 <p>Welcome dear super user: {{user.userName}}</p>
 {{status}}
-<select ng-model="friendSelected" ng-change="update()" >
-    <option   ng-repeat=" wish in wishes" value="{{wish.user}}">{{wish.user}}</option>
+<select ng-model="friendSelected" ng-change="update()">
+    <option ng-repeat=" wish in wishes" value="{{wish.user}}">{{wish.user}}</option>
 </select>
 
-<ol>
-      <li ng-repeat="f in userInScope">{{f.userName}} {{f._id}}</li>
-</ol>
+<h3>You are logged in as {{userInScope[0].userName}}</h3>
 
-<h2> wish for: {{friendSelected}}</h2>
+<div class="container">
+    <h2> wish for: {{friendSelected}}</h2>
 
-<br/>
-<br/>
-<br/>
-<br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <table class=" table table-striped">
+        <thead>
+        <th>Bought</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Owner</th>
+        <th>Link</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="wish in friendsWishes">
+            <td><input type="checkbox" class="checkboxWishlist" ng-checked="wish.bought"></td>
+            <td>{{wish.title}}</td>
+            <td>{{wish.price}}</td>
+            <td>{{wish.description}}</td>
+            <td>{{friendSelected}}</td>
+            <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" ng-click="moveFromToList()" value="Save To To BUY">
+</div>
+<h2>TO BUY LIST</h2>
 <table class=" table table-striped">
     <thead>
     <th>Bought</th>
@@ -24,25 +46,22 @@
     <th>Description</th>
     <th>Owner</th>
     <th>Link</th>
-    <th></th>
     </thead>
     <tbody>
-    <tr ng-repeat="wish in friendsWishes">
-        <td><input type="checkbox" class="checkboxWishlist" id={{wish._id}}></td>
-        <td>{{wish.title}}</td>
-        <td>{{wish.price}}</td>
-        <td>{{wish.description}}</td>
-        <td>{{friendSelected}}</td>
-        <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
-        <td><button ng-click="remove(wish._id)">X</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"></button></td>
+    <tr ng-repeat="wishToBuy in buyerList">
+        <td><input type="checkbox" class="checkboxWishlist" id={{wishToBuy.title}}></td>
+        <td>{{wishToBuy.title}}</td>
+        <td>{{wishToBuy.price}}</td>
+        <td>{{wishToBuy.description}}</td>
+        <td>{{wishToBuy.owner}}</td>
+        <td><a target="_blank" href="http://{{wishToBuy.link}}">{{wishToBuy.link}}</a></td>
     </tr>
     </tbody>
 </table>
-
 <!--<select ng-options="size as size.owner for size in fList"-->
 <!--ng-model="item" ng-change="update()"></select>-->
 
-        <!--<p>{{whi.title}}</p>-->
+<!--<p>{{whi.title}}</p>-->
 
 
 <!--<li ng-model="item" ng-repeat="wish in whises ">{{wish}}</li>-->

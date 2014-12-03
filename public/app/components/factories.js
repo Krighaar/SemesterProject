@@ -62,6 +62,10 @@ app.factory('wishFactory', ['$http', function ($http) {
         return $http.get(urlBase +'/wish/'+id)
     }
 
+    wishFactory.getWishFromWishId = function(id){
+        return $http.get(urlBase +'/wish/wish/'+id)
+    }
+
     return wishFactory;
 }]);
 
