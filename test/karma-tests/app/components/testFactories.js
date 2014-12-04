@@ -1,20 +1,70 @@
-describe('myAppRename.factories', function () {
+beforeEach(module('myAppRename.factories'));
 
-  beforeEach(module('myAppRename.factories'));
+describe('userFactory', function () {
 
-  describe('InfoFactory', function () {
-    var infoFactory;
-    beforeEach(inject(function (_InfoFactory_) {
-      infoFactory = _InfoFactory_;
-    }));
+  var scope, httpBackendMock, factory;
+  var url = 'adminApi/userAdmin/';
 
-    it('Should be Hello World from a Factory', function () {
-      expect(infoFactory.getInfo()).toBe("Hello World from a Factory");
+
+
+  beforeEach(inject(function ($httpBackend,userFactory) {
+
+    httpBackendMock=$httpBackend;
+    factory=userFactory;
+  }));
+
+  it('getAllUsers should return promise and respond with String"', function () {
+
+    httpBackendMock.whenGET(url).respond(200,"usersString");
+
+    expect(factory.getAllUsers().then).toBeDefined()
+    expect(factory.getAllUsers().success).toBeDefined()
+
+    var promise=factory.getAllUsers();
+    var theUsers;
+
+    promise.then(function(users){
+      theUsers=users;
+
     });
+    httpBackendMock.flush();
+    expect(theUsers instanceof String).toBeTruthy();
+    expect(theUsers).toEqual("usersString");
   });
 
+  //
+  //it('removeUser return promise"', function () {
+  //
+  //  httpBackendMock.whenGET(url).respond(200,"OK");
+  //
+  //  expect(factory.getWiki("test").then).toBeDefined()
+  //  expect(factory.getWiki("test").success).toBeDefined()
+  //});
+  //
+  //it('getCategories return promise"', function () {
+  //
+  //  httpBackendMock.whenGET(url).respond(200,"OK");
+  //
+  //  expect(factory.getCategories().then).toBeDefined()
+  //  expect(factory.getCategories().success).toBeDefined()
+  //});
+  //
+  //it('getCategory return promise"', function () {
+  //
+  //  httpBackendMock.whenGET(url).respond(200,"OK");
+  //
+  //  expect(factory.getCategory("test").then).toBeDefined()
+  //  expect(factory.getCategory("test").success).toBeDefined()
+  //});
+  //
+  //it('findWiki return promise"', function () {
+  //
+  //  httpBackendMock.whenGET(url).respond(200,"OK");
+  //
+  //  expect(factory.findWiki("test").then).toBeDefined()
+  //  expect(factory.findWiki("test").success).toBeDefined()
+  //});
+  //
 
-  describe('XXXFactory', function () {
-
-  });
 });
+

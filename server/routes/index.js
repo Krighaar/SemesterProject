@@ -26,8 +26,9 @@ router.post('/createUser',function(req,res){
 
     var post_req = http.request(post_options, function (res) {
         res.setEncoding('utf8');
-if(res.status=401)
+
         res.on('data', function (chunk) {
+
             console.log('Response: ' + chunk);
 
 

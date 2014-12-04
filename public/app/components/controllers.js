@@ -47,13 +47,15 @@ angular.module('myAppRename.controllers', []).
           $scope.isAdmin = profile.role == "admin";
           $scope.isUser = !$scope.isAdmin;
           $scope.error = null;
+            $scope.user= null;
+
         })
         .error(function (data, status, headers, config) {
             console.log("failed")
           //Erase the token if the user fails to log in
           delete $window.sessionStorage.token;
           $scope.isAuthenticated = false;
-
+          $scope.user= null;
           $scope.error = 'You failed to login. Invalid User or Password';
         });
     };
