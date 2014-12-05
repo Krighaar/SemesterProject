@@ -139,7 +139,8 @@ router.get('/friends/:id', function (req, res) {
         res.end(JSON.stringify(friends));
     })
 });
-    router.get('/wish/user/:id', function (req, res) {
+
+router.get('/wish/user/:id', function (req, res) {
 
         facade.getUserByWishID(req.params.id, function (err, user) {
             if (err) {
@@ -289,6 +290,36 @@ router.get('/wishes/:id',function(req,res){
         }
         res.header("Content-type", "application/json");
         res.end(JSON.stringify(wishes));
+    })
+})
+
+// Remove wish
+//router.put('/wishes/:id',function(req,res){
+//
+//    facade.removeWish(req.params.id , function(err, wishes) {
+//        if (err) {
+//            res.status(err.status || 500);
+//            res.end(JSON.stringify({error: err.toString()}));
+//            return;
+//        }
+//        res.header("Content-type", "application/json");
+//        res.end(JSON.stringify(wishes));
+//    })
+//})
+
+// add user to friendlist
+router.put('/addfriend/:id',function(req,res){
+console.log("inside add to friend api")
+
+    console.log(req.body)
+    facade.addToFriendList(req.params.id,req.body , function(err, friends) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(friends));
     })
 })
 
