@@ -24,16 +24,33 @@ function deleteUser(id,callback) {
         }
         callback(null, user);
     }))
-
-
 }
+
+
+    function editUser(id,editingUser,callback) {
+        user.findByIdAndUpdate(id, editingUser,function (err, user) {
+            if (err) {
+                return callback(err)
+            }
+            callback(null, user);
+        })
+
+
+
+
+
+
+
+    }
 
 
 
 module.exports = {
 
     addNewUser: addNewUser,
-deleteUser:deleteUser
+deleteUser:deleteUser,
+    editUser:editUser
+
 
 
 }

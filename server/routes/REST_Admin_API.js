@@ -259,6 +259,25 @@ router.put('/:id', function (req, res) {
 
 })
 
+router.put('/adminApi/userAdmin/:id', function (req, res) {
+
+    var changingUser = req.body;
+    console.log("changingUser"+req.body)
+
+    userfacade.editUser(req.params.id, req.body, function (err, user) {
+        console.log("inside update user")
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+
+
 //get Wish from WishID
 router.get('/wishes/:id',function(req,res){
     console.log("inside /wishes/id")

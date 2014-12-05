@@ -46,6 +46,45 @@ router.post('/createUser',function(req,res){
 
 })
 
+router.put('/editUser',function(req,res){
+    console.log("putreq.body "+JSON.stringify(req.body))
+
+    var put_options = {
+        host: 'sunnycop.cloudapp.net',
+        port: '9876',
+        path: '/user',
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+
+        }
+    };
+
+    var put_req = http.request(put_options, function (res) {
+        res.setEncoding('utf8');
+
+        res.on('data', function (chunk) {
+
+            console.log('Response: ' + chunk);
+
+
+
+        });
+        res.on('error', function(err) {
+            console(err.message)
+
+            ;});
+    });
+
+    // post the data
+    put_req.write(JSON.stringify(req.body));
+    put_req.end();
+
+})
+
+
+
+
 router.delete('/deleteUser',function(req,res){
     console.log("req.body "+JSON.stringify(req.body))
 

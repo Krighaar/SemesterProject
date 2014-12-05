@@ -37,7 +37,7 @@ angular.module('myAppRename.controllers', []).
       $http
         .post('/authenticate', $scope.user)
         .success(function (data, status, headers, config) {
-          $location.path("/view1");
+          $location.path("/view3");
             console.log("success")
           $window.sessionStorage.token = data.token;
           $scope.isAuthenticated = true;
@@ -71,7 +71,7 @@ angular.module('myAppRename.controllers', []).
       $scope.isSuper=false;
       $scope.user="";
       delete $window.sessionStorage.token;
-      $location.path("/view1");
+      $location.path("/view3");
     }
 
 
