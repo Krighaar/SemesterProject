@@ -1,12 +1,12 @@
 <h1>Super users!</h1>
 
-<p>Welcome dear super user: {{user.userName}}</p>
+<p>Welcome dear super user: {{username}}</p>
 {{status}}
 <select ng-model="friendSelected" ng-change="update()">
-    <option ng-repeat=" wish in wishes" value="{{wish.user}}">{{wish.user}}</option>
+    <option ng-repeat=" wish in friendList" value="{{wish.user}}">{{wish.user}}</option>
 </select>
 
-<h3>You are logged in as {{userInScope[0].userName}}</h3>
+<h3>You are logged in as {{username}}</h3>
 
 <div class="container">
     <h2> wish for: {{friendSelected}}</h2>

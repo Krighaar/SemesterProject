@@ -18,7 +18,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
             $scope.buyerList = []
             wishFactory.getWish().success(function (allWishes) {
                 for (var i = 0; i < allWishes.length; i++) {
-                    if (allWishes[i].buyer === 'John') {
+                    if (allWishes[i].buyer === $scope.username) {
                         console.log("insde for: " + JSON.stringify(allWishes[i]))
                         $scope.buyerList.push(allWishes[i]);
                     }
@@ -37,31 +37,28 @@ angular.module('myAppRename.view4', ['ngRoute'])
         //var currentUser =  wishFactory.getUser(user.userName);
         //var currentUser =  wishFactory.getUser("John");
 
-        var id = "547858d4e4b03d53943a0f5b";
+        //var id = "547858d4e4b03d53943a0f5b";
 
         //TODO change user:  "john is hardcoded, should be logged in user!
-        wishFactory.getUser("John").success(function (user) {
+        wishFactory.getUser($scope.username).success(function (user) {
 
-            $scope.userInScope = user;
-            console.log($scope.userInScope);
+            $scope.userInScope = user[0];
+            $scope.UserInScopeID = $scope.userInScope._id;
+            console.log("user in scope " + $scope.UserInScopeID);
 
             console.log(user.friends);
-        })
-            .error(function (error) {
-                $scope.status = "unable to get friendList"
+            //})
+            //    .error(function (error) {
+            //        $scope.status = "unable to get friendList"
+            //    })
+
+            wishFactory.getFriends($scope.UserInScopeID).success(function (friends) {
+                $scope.friendList = friends;
             })
-
-        wishFactory.getFriends(id).success(function (wish) {
-
-            $scope.wishes = wish;
-            console.log($scope.wishes);
-
-
+                .error(function (error) {
+                    $scope.status = "unable to get friend List"
+                })
         })
-            .error(function (error) {
-                $scope.status = "unable to get wishes"
-            })
-
         $scope.remove = function remove(id, wishTitle) {
             wishFactory.removeWish(id, wishTitle)
 
@@ -83,12 +80,12 @@ angular.module('myAppRename.view4', ['ngRoute'])
             }
         }
 
-        //get all wishes with user a boyer
+        //get all wishes with user as boyer
 
         $scope.getUserBuyList = function () {
             $scope.buyerList.clear();
             for (var i = 0; i < $scope.friendsWishes; i++) {
-                if ($scope.friendsWishes[i].buyer === 'John') {
+                if ($scope.friendsWishes[i].buyer === $scope.username) {
                     $scope.buyerList.push(friendsWishes[i]);
                 }
 
@@ -121,7 +118,8 @@ angular.module('myAppRename.view4', ['ngRoute'])
 
         $scope.update = function () {
             $scope.friend = $scope.friendSelected
-            console.log($scope.friend)
+            console.log("update, friends selected: "+$scope.friendSelected)
+            console.log("printing friends in dropdown: "+$scope.friend)
             wishFactory.getUser($scope.friend).success(function (user) {
                 console.log(user)
                 $scope.userId = user[0]._id;
@@ -134,10 +132,11 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 })
 
             })
-            updateTobuyList();
 
         }
+        $scope.update();
 
 
-
-    }]);
+    }
+    ])
+;

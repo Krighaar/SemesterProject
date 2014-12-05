@@ -137,12 +137,13 @@ router.post('/authenticate', function (req, res) {
 
 
     if (role === 'user') {
-
+console.log('inside userToken')
         // We are sending the profile inside the token
         var token = jwt.sign(profile, require("../security/secrets").secretTokenUser, {expiresInMinutes: 60 * 5});
         res.json({token: token});
         return;
     } else if (role === 'admin') {
+        console.log('inside AdminToken')
         // We are sending the profile inside the token
         var token = jwt.sign(profile, require("../security/secrets").secretTokenAdmin, {expiresInMinutes: 60 * 5});
         res.json({token: token});

@@ -44,7 +44,8 @@ angular.module('myAppRename.controllers', []).
           var encodedProfile = data.token.split('.')[1];
           var profile = JSON.parse(url_base64_decode(encodedProfile));
           $scope.username = profile.username;
-          $scope.isAdmin = profile.role == "admin";
+            console.log("before check of admin: "+ JSON.stringify(profile))
+          $scope.isAdmin = profile.role === "admin";
           $scope.isUser = !$scope.isAdmin;
           $scope.error = null;
             $scope.user= null;
