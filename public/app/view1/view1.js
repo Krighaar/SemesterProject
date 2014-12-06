@@ -43,15 +43,22 @@ angular.module('myAppRename.view1', ['ngRoute'])
       $scope.responseArray = [];
       $scope.maxSize = 10;
 
-        $scope.addFriend = function addFriend(user){
-            console.log("selected user: "+user)
-            var id = '547f81a51bbb964c2195d3c4'
+        $scope.addFriend = function addFriend(user) {
+            console.log("selected user: " + user)
 
-            wishFactory.addFriendToList(id, user).success(function () {
-                $scope.status = 'Inserted user to friendslist!';
-            }).
-                error(function (error) {
-                    $scope.status = 'Unable to insert user to friendlist: ' + error.message;
-                });
+            wishFactory.getUser($scope.username).success(function (currentUser) {
+
+                var id = currentUser[0]._id;//'547f81a51bbb964c2195d3c4'
+                var theUser = {
+                    user: user
+                }
+console.log(id)
+                wishFactory.addFriendToList(id, theUser).success(function () {
+                    $scope.status = 'Inserted user to friendslist!';
+                }).
+                    error(function (error) {
+                        $scope.status = 'Unable to insert user to friendlist: ' + error.message;
+                    });
+            });
         }
 }]);
