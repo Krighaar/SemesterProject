@@ -25,8 +25,10 @@ angular.module('myAppRename.view3', ['ngRoute'])
         //        }
         //    }
         //}
-            wishFactory.getUser($scope.username).success(function (id){
-                console.log("id of logged in user: "+id[0]._id)
+
+        if ($scope.isAuthenticated)
+        {     wishFactory.getUser($scope.username).success(function (id) {
+                console.log("id of logged in user: " + id[0]._id)
                 idUserLoggedIn = id[0]._id;
 
                 wishFactory.getWishFromUser(idUserLoggedIn)
@@ -40,7 +42,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
             })
 
-
+    }
 
         $scope.createWish = function createWish(wish) {
 

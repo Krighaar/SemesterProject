@@ -14,6 +14,8 @@ angular.module('myAppRename.view4', ['ngRoute'])
 
         $scope.buyerList = []
 
+        $scope.messageIfWishListIsEmpty=""
+
 
         function getUserBuyList() {
             $scope.buyerList=[];
@@ -28,22 +30,24 @@ angular.module('myAppRename.view4', ['ngRoute'])
 
                 }
             })
-            console.log("not succes")
+                .error(function(){
+            console.log("not succes")})
         }
 
         getUserBuyList();
 
-        $scope.updateTobuyList = function () {
-            $scope.buyerList = []
-            wishFactory.getWish().success(function (allWishes) {
-                for (var i = 0; i < allWishes.length; i++) {
-                    if (allWishes[i].buyer === $scope.username) {
-                        console.log("insde for: " + JSON.stringify(allWishes[i]))
-                        $scope.buyerList.push(allWishes[i]);
-                    }
-                }
-            })
-        }
+        //$scope.updateTobuyList = function () {
+        //    $scope.buyerList = []
+        //    wishFactory.getWish().success(function (allWishes) {
+        //        for (var i = 0; i < allWishes.length; i++) {
+        //            if (allWishes[i].buyer === $scope.username) {
+        //                console.log("insde for: " + JSON.stringify(allWishes[i]))
+        //                $scope.buyerList.push(allWishes[i]);
+        //            }
+        //        }
+        //    })
+        //}
+
 
         $scope.list = [];
         //$scope.updateTobuyList();
@@ -69,7 +73,12 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 })
         })
         $scope.remove = function remove(id, wishTitle) {
-            wishFactory.removeWish(id, wishTitle)
+            wishFactory.removeWish(id, wishTitle).success(function(){
+
+                $scope.messageIfWishListIsEmpty=""
+                getUserBuyList()
+                $scope.update();
+            })
 
         }
 
@@ -87,6 +96,10 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 console.log($scope.list[i])
                 console.log($scope.list[i].title)
             }
+
+            $scope.messageIfWishListIsEmpty=""
+            getUserBuyList()
+            $scope.update();
         }
 
         //get all wishes with user as boyer
@@ -98,6 +111,10 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 buyer: ""
             }
             wishFactory.addWishToBuyList(wish._id, buyer).success(function (msg) {
+
+                $scope.messageIfWishListIsEmpty=""
+                getUserBuyList()
+                $scope.update();
                 console.log("wish removed from tobuy " + msg)
             })
         }
@@ -137,6 +154,10 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 "buyer": $scope.username
             }
             wishFactory.addWishToBuyList(wish._id, buyer).success(function (msg) {
+
+                $scope.messageIfWishListIsEmpty=""
+                getUserBuyList();
+                $scope.update();
                 console.log("wish added to tobuy " + msg)
             })
 
@@ -147,7 +168,14 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 bought: true
             }
             wishFactory.buyWish(wish._id, bought).success(function (msg) {
+
+                $scope.messageIfWishListIsEmpty=""
+                getUserBuyList()
+                $scope.update();
                 console.log("wish added to tobuy " + msg)
+
+
+
             })
         }
 

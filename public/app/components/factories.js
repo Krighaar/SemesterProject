@@ -44,7 +44,7 @@ app.factory('wishFactory', ['$http', function ($http) {
         return $http.get(urlBase + '/wish')
     }
     wishFactory.removeWish=function(wish) {
-        return $http.put(urlBase+'/'+wish,wish)
+            return $http.put(urlBase+'/'+wish,wish)
     }
     wishFactory.createWish=function(wish, id) {
         console.log(id)
@@ -95,7 +95,7 @@ app.factory('userFactory', ['$http', function ($http) {
     var urlBase = 'adminApi/userAdmin/';
     var userFactory = {};
     userFactory.getAllUsers = function(){
-        return $http.get("/adminApi")
+        return $http.get("adminApi/")
     }
     userFactory.removeUser = function(id){
         return $http.delete(urlBase+id)
@@ -105,9 +105,9 @@ app.factory('userFactory', ['$http', function ($http) {
         return $http.post(urlBase,userjson)
     }
 
-    userFactory.getAllUsers = function(){
-        return $http.get('adminApi/')
-    }
+    //userFactory.getAllUsers = function(){
+    //    return $http.get('adminApi/')
+    //}
 
     return userFactory;
 }]);
