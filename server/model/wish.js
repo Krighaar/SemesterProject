@@ -156,16 +156,6 @@ function findbyID(id, wishTitle, callback) {
     });
 }
 
-// remove wish
-function removeWish(wishID, callback) {
-    console.log("inside getWIshID " + wishID)
-    user.findOneAndUpdate({'wishes._id':wishID},{ $pull: { 'wishes.$._id': wishID}},{safe: true, upsert: true}, function (err, wishes) {
-        if (err) {
-            return callback(err)
-        }
-        callback(null, wishes)
-    })
-}
 
 function addToFriendList(userId,friendName, callback){
 
