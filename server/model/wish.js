@@ -87,6 +87,34 @@ function getWishByID(wishID, buyerName, callback) {
     })
 }
 
+
+//WIP, near completion, but there is a serious issue
+//function updateWish (id, wish, callback)
+//{
+//    console.log('id: '+id)
+//    console.log('wish:'+wish)
+//
+//    user.findOneAndUpdate({'wishes._id': id}, {$set: {'wishes': wish}}, function (err) {
+//        console.log("inside update")
+//        if (err) {
+//            return callback(err);
+//        }
+//    })
+//}
+
+function removeWish(wishid, callback){
+
+    console.log('inside delete wish: '+wishid)
+    user.findOneAndUpdate({'wishes._id':wishid}, {$pull: {'wishes': {_id:wishid}}}, function(err)
+    {
+        if (err) {
+            return callback(err)
+        }
+        //callback()
+    })
+
+}
+
 function getUserByWishID(wishID, callback) {
     console.log("inside getUserByWishID " + wishID)
     user.findOne({'wishes._id':wishID},function (err, foundOne) {
@@ -98,10 +126,6 @@ function getUserByWishID(wishID, callback) {
 
         }
     );
-
-
-
-
 }
 
 function updateBuyer(id, buyerUserName, callback) {
@@ -132,16 +156,6 @@ function findbyID(id, wishTitle, callback) {
     });
 }
 
-// remove wish
-function removeWish(wishID, callback) {
-    console.log("inside getWIshID " + wishID)
-    user.findOneAndUpdate({'wishes._id':wishID},{ $pull: { 'wishes.$._id': wishID}},{safe: true, upsert: true}, function (err, wishes) {
-        if (err) {
-            return callback(err)
-        }
-        callback(null, wishes)
-    })
-}
 
 function addToFriendList(userId,friendName, callback){
 

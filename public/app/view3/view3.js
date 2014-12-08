@@ -50,9 +50,10 @@ angular.module('myAppRename.view3', ['ngRoute'])
             if ($scope.newWish._id != null) {
 
                 console.log("updated");
+                //wishFactory.updateWish($scope.newWish._id, $scope.newWish)
+                $scope.newWish=null;
 
                 //Creating wishes isn't finished, needs a lot of polishing, existing bugs
-
 
             }
             else {
@@ -73,27 +74,27 @@ angular.module('myAppRename.view3', ['ngRoute'])
 //                    error(function (error) {
 //                        $scope.status = 'Unable to insert customer: ' + error.message;
 //                    });
-//                wishFactory.getWishFromUser("54785877e4b03d53943a0f58")
-//                    .success(function (wish) {
-//                        $scope.whises = wish;
-//                    })
-//                    .error(function (error) {
-//                        $scope.status = 'Unable to load customer data: ' + error.message;
-//                    });
+                wishFactory.getWishFromUser(idUserLoggedIn)
+                    .success(function (wish) {
+                        $scope.whises = wish;
+                    })
+                    .error(function (error) {
+                        $scope.status = 'Unable to load customer data: ' + error.message;
+                    });
             }
             $scope.newWish = {};
         }
 
-        //WORK IN PROGRESS, DO NOT EXPECT IT TO WORK
-        $scope.remove = function remove(wishId) {
-            wishFactory.removeWish(wishId)
-            //wishFactory.getWishFromUser()
-            //    .success(function (wish) {
-            //        $scope.whises = wish;
-            //    })
-            //    .error(function (error) {
-            //        $scope.status = 'Unable to load customer data: ' + error.message;
-            //    });
+        $scope.removeWishByID = function (wishId) {
+            console.log('before factory');
+            wishFactory.removeWish(wishId);
+            wishFactory.getWishFromUser(idUserLoggedIn)
+                .success(function (wish) {
+                    $scope.whises = wish;
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                });
         }
 
         $scope.edit = function (wish) {
