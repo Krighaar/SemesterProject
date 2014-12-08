@@ -246,9 +246,10 @@ router.put('/:id', function (req, res) {
 
     var wish = req.body;
     console.log(req.body)
+    console.log(req.params.id)
 
     facade.addWish(req.params.id, req.body, function (err, user) {
-        console.log("inside update")
+        console.log("inside update ")
         if (err) {
             res.status(err.status || 500);
             res.end(JSON.stringify({error: err.toString()}));
@@ -323,16 +324,31 @@ console.log("inside add to friend api")
     })
 })
 
-router.put('/buy/:id', function (req, res) {
+
+// Add to ToBuyList wish
+router.put('/buy/wish/:id', function (req, res) {
+
+    facade.buyWish(req.params.id,req.body, function (err, user) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringfy({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+router.put('/addToBuyList/wish/:id', function (req, res) {
 
     var buyer = req.body;
     console.log(req.body)
 
-    facade.updateBuyer(req.params.id, req.body, function (err, user) {
+    facade.getWishByID(req.params.id, req.body, function (err, user) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);
-            res.end(JSON.stringfy({error: err.toString()}));
+            res.end(JSON.stringify({error: err.toString()}));
             return;
         }
         res.header("Content-type", "application/json");

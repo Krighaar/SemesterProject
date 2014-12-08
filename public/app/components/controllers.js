@@ -1,5 +1,5 @@
-angular.module('myAppRename.controllers', []).
-  controller('AppCtrl', function ($scope, $http, $window,$location) {
+angular.module('myAppRename.controllers',[]).
+  controller('AppCtrl', function ($scope, $http, $window,$location, wishFactory) {
 
     function url_base64_decode(str) {
       var output = str.replace('-', '+').replace('_', '/');
@@ -17,6 +17,8 @@ angular.module('myAppRename.controllers', []).
       }
       return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
     }
+
+
 
 
     $scope.title = "Semester Project";
@@ -44,6 +46,12 @@ angular.module('myAppRename.controllers', []).
           var encodedProfile = data.token.split('.')[1];
           var profile = JSON.parse(url_base64_decode(encodedProfile));
           $scope.username = profile.username;
+            wishFactory.getUser($scope.username).success(function(user){
+            console.log("inside controllers "+JSON.stringify(user[0]))
+              $scope.loggedInUser = user[0];
+            })
+
+
             console.log("before check of admin: "+ JSON.stringify(profile))
           $scope.isAdmin = profile.role === "admin";
           $scope.isUser = !$scope.isAdmin;

@@ -11,6 +11,8 @@ angular.module('myAppRename.view1', ['ngRoute'])
 
 .controller('View1Ctrl', ['$scope', 'userFactory', 'wishFactory', function ($scope, userFactory, wishFactory) {
 
+        $scope.viewLoading = true;
+
       var allCatArray = [];
       var filteredArray = [];
 
@@ -27,6 +29,7 @@ angular.module('myAppRename.view1', ['ngRoute'])
         $scope.responseArray.push(wishes[i]);
       }
       $scope.totalItems = $scope.responseArray.length
+          $scope.viewLoading = false;
     })
 
       $scope.$watch('currentPage', function () {

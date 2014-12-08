@@ -15,9 +15,10 @@
     <br/>
     <br/>
     <br/>
+    <p class="alert-danger">{{messageIfWishListIsEmpty}}</p>
     <table class=" table table-striped">
         <thead>
-        <th>Bought</th>
+        <th>Add To My "to buy list"</th>
         <th>Title</th>
         <th>Price</th>
         <th>Description</th>
@@ -25,8 +26,8 @@
         <th>Link</th>
         </thead>
         <tbody>
-        <tr ng-repeat="wish in friendsWishes">
-            <td><input type="checkbox" class="checkboxWishlist" ng-checked="wish.bought"></td>
+        <tr ng-repeat="wish in friendsWishes | emptyWishlist track by $index">
+            <td><button type="button" class="btn btn-success" ng-click="addWishToBuyList(wish)">Add ToBuyList</button></td>
             <td>{{wish.title}}</td>
             <td>{{wish.price}}</td>
             <td>{{wish.description}}</td>
@@ -35,12 +36,12 @@
         </tr>
         </tbody>
     </table>
-    <input type="submit" ng-click="moveFromToList()" value="Save To To BUY">
+
 </div>
 <h2>TO BUY LIST</h2>
 <table class=" table table-striped">
     <thead>
-    <th>Bought</th>
+    <th>Buy || Release wish</th>
     <th>Title</th>
     <th>Price</th>
     <th>Description</th>
@@ -49,7 +50,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="wishToBuy in buyerList">
-        <td><input type="checkbox" class="checkboxWishlist" id={{wishToBuy.title}}></td>
+        <td><button type="button" class="btn btn-success" ng-click="buyWish(wishToBuy)">BUY</button> || <button type="button" class="btn btn-danger" ng-click="releaseWish(wishToBuy)">Release</button></td>
         <td>{{wishToBuy.title}}</td>
         <td>{{wishToBuy.price}}</td>
         <td>{{wishToBuy.description}}</td>

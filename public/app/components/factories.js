@@ -74,6 +74,18 @@ app.factory('wishFactory', ['$http', function ($http) {
         console.log(id)
         return $http.put(urlBase+'/addfriend/'+id,friendName);
     }
+
+    //
+    wishFactory.addWishToBuyList = function(id,wish){
+        console.log("id is: "+id)
+        console.log("wish is: "+wish)
+        return $http.put(urlBase+'/addToBuyList/wish/'+id,wish)
+    }
+
+    wishFactory.buyWish = function(wishId, bought){
+        return $http.put(urlBase+'/buy/wish/'+wishId,bought)
+    }
+
     return wishFactory;
 }]);
 

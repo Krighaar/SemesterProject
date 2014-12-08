@@ -18,7 +18,7 @@ angular.module('myAppRename', [
   'myAppRename.view8'
 ]).
 config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/view3'});
+    $routeProvider.otherwise({redirectTo: '/view1'});
 }])
 .config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');

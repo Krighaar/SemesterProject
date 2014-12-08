@@ -76,10 +76,10 @@ function addWish(id, wish, callback) {
 
 }
 
-//Get wishes by wishID
-function getWishByID(wishID, callback) {
+//Get update wish bvuyer (by wishID)
+function getWishByID(wishID, buyerName, callback) {
     console.log("inside getWIshID " + wishID)
-    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { 'wishes.$.buyer': 'new buyer' }},{safe: true, upsert: true}, function (err, wishes) {
+    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { 'wishes.$.buyer': buyerName.buyer }},{safe: true, upsert: true}, function (err, wishes) {
         if (err) {
             return callback(err)
         }
@@ -105,7 +105,16 @@ function getUserByWishID(wishID, callback) {
 }
 
 function updateBuyer(id, buyerUserName, callback) {
-    user.update({'wishes.title': id}, {$set: {wishes: {buyer: buyerUserName}}}, function (err, result) {
+    user.update({'wishes._id': id}, {$set: {'wishes._id': {buyer: buyerUserName}}}, function (err, result) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, result)
+    })
+}
+
+function buyWish(wishId, bought, callback) {
+    user.findOneAndUpdate({'wishes._id': wishId}, {$set: {'wishes.$.bought' : bought.bought}}, function (err, result) {
         if (err) {
             return callback(err)
         }
@@ -156,7 +165,8 @@ module.exports = {
     updateBuyer: updateBuyer,
     getUserByWishID: getUserByWishID,
     removeWish:removeWish,
-    addToFriendList:addToFriendList
+    addToFriendList:addToFriendList,
+    buyWish:buyWish
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories
