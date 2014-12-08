@@ -43,13 +43,13 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
 
         $scope.createWish = function createWish(wish) {
-
+            console.log('create wish')
             console.log($scope.newWish._id)
             if ($scope.newWish._id != null) {
 
                 console.log("updated");
-
-                //Creating wishes isn't finished, needs a lot of polishing, existing bugs
+                //wishFactory.updateWish($scope.newWish._id, $scope.newWish)
+                $scope.newWish=null;
 
 
             }
@@ -71,21 +71,21 @@ angular.module('myAppRename.view3', ['ngRoute'])
 //                    error(function (error) {
 //                        $scope.status = 'Unable to insert customer: ' + error.message;
 //                    });
-//                wishFactory.getWishFromUser("54785877e4b03d53943a0f58")
-//                    .success(function (wish) {
-//                        $scope.whises = wish;
-//                    })
-//                    .error(function (error) {
-//                        $scope.status = 'Unable to load customer data: ' + error.message;
-//                    });
+                wishFactory.getWishFromUser(idUserLoggedIn)
+                    .success(function (wish) {
+                        $scope.whises = wish;
+                    })
+                    .error(function (error) {
+                        $scope.status = 'Unable to load customer data: ' + error.message;
+                    });
             }
             $scope.newWish = {};
         }
 
-        //WORK IN PROGRESS, DO NOT EXPECT IT TO WORK
-        $scope.remove = function remove(wishId) {
-            wishFactory.removeWish(wishId)
-            wishFactory.getWishFromUser("54785877e4b03d53943a0f58")
+        $scope.removeWishByID = function (wishId) {
+            console.log('before factory');
+            wishFactory.removeWish(wishId);
+            wishFactory.getWishFromUser(idUserLoggedIn)
                 .success(function (wish) {
                     $scope.whises = wish;
                 })

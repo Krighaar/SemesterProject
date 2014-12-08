@@ -86,6 +86,34 @@ function getWishByID(wishID, callback) {
         callback(null, wishes)
     })
 }
+
+//WIP, near completion, but there is a serious issue
+//function updateWish (id, wish, callback)
+//{
+//    console.log('id: '+id)
+//    console.log('wish:'+wish)
+//
+//    user.findOneAndUpdate({'wishes._id': id}, {$set: {'wishes': wish}}, function (err) {
+//        console.log("inside update")
+//        if (err) {
+//            return callback(err);
+//        }
+//    })
+//}
+
+function removeWish(wishid, callback){
+
+    console.log('inside delete wish: '+wishid)
+    user.findOneAndUpdate({'wishes._id':wishid}, {$pull: {'wishes': {_id:wishid}}}, function(err)
+    {
+        if (err) {
+            return callback(err)
+        }
+        //callback()
+    })
+
+}
+
 function getUserByWishID(wishID, callback) {
     console.log("inside getUserByWishID " + wishID)
     user.findOne({'wishes._id':wishID},function (err, foundOne) {
@@ -97,10 +125,6 @@ function getUserByWishID(wishID, callback) {
 
         }
     );
-
-
-
-
 }
 
 function updateBuyer(id, buyerUserName, callback) {
@@ -133,7 +157,9 @@ module.exports = {
     getWishByID: getWishByID,
     findById: findbyID,
     updateBuyer: updateBuyer,
-    getUserByWishID: getUserByWishID
+    getUserByWishID: getUserByWishID,
+    removeWish: removeWish,
+    updateWish: updateWish
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories

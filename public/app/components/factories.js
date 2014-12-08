@@ -43,9 +43,16 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.getWish = function () {
         return $http.get(urlBase + '/wish')
     }
-    wishFactory.removeWish=function(wish) {
-        return $http.delete(urlBase +'/'+wish)
+    wishFactory.removeWish=function(id) {
+        console.log('wish id: '+id)
+        return $http.delete(urlBase +'/wishes/'+id)
     }
+
+    //WIP, near completion, but there is a serious issue
+    //wishFactory.updateWish=function(id,wish){
+    //   console.log('factory update')
+    //    return $http.put(urlBase+'/wish/'+id,wish)
+    //}
     wishFactory.createWish=function(wish, id) {
         console.log(id)
         return $http.put(urlBase+'/'+id,wish);

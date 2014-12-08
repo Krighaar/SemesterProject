@@ -19,7 +19,7 @@
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
-        <td><button ng-click="remove(wish._id)" class="glyphicon glyphicon-trash"> Delete</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button></td>
+        <td><button ng-click="removeWishByID(wish._id)" class="glyphicon glyphicon-trash"> Delete</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button></td>
     </tr>
     </tbody>
 </table>
