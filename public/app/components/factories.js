@@ -49,10 +49,10 @@ app.factory('wishFactory', ['$http', function ($http) {
     }
 
     //WIP, near completion, but there is a serious issue
-    //wishFactory.updateWish=function(id,wish){
-    //   console.log('factory update')
-    //    return $http.put(urlBase+'/wish/'+id,wish)
-    //}
+    wishFactory.updateWish=function(id,wish){
+       console.log('factory update')
+        return $http.put(urlBase+'/wish/'+id,wish)
+    }
     wishFactory.createWish=function(wish, id) {
         console.log(id)
         return $http.put(urlBase+'/'+id,wish);

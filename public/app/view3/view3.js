@@ -50,7 +50,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
             if ($scope.newWish._id != null) {
 
                 console.log("updated");
-                //wishFactory.updateWish($scope.newWish._id, $scope.newWish)
+                wishFactory.updateWish($scope.newWish._id, $scope.newWish)
                 $scope.newWish=null;
 
                 //Creating wishes isn't finished, needs a lot of polishing, existing bugs

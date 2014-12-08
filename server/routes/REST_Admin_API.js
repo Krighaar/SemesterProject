@@ -274,22 +274,22 @@ router.put('/:id', function (req, res) {
 })
 
 //WIP, near completion, but there is a serious issue
-//router.put('/wish/:id', function (req, res) {
-//
-//    var wish = req.body;
-//    console.log(req.body)
-//
-//    facade.updateWish(req.params.id, req.body, function (err) {
-//        if (err) {
-//            res.status(err.status || 500);
-//            res.end(JSON.stringify({error: err.toString()}));
-//            return;
-//        }
-//        res.header("Content-type", "application/json");
-//        res.end(JSON.stringify(req.params.body));
-//    })
-//
-//})
+router.put('/wish/:id', function (req, res) {
+
+    var wish = req.body;
+    console.log(req.body)
+
+    facade.updateWish(req.params.id, req.body, function (err) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(req.params.body));
+    })
+
+})
 
 router.put('/adminApi/userAdmin/:id', function (req, res) {
 
