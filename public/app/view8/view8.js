@@ -11,7 +11,7 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 .controller('View8Ctrl',['$scope', '$http','userFactory', function ($scope, $http,userFactory) {
 
-$scope.adddingpw;
+
 
 
       $scope.addUser = function (addinguser) {

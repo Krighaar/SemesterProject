@@ -153,7 +153,8 @@ router.get('/friends/:id', function (req, res) {
         res.end(JSON.stringify(friends));
     })
 });
-    router.get('/wish/user/:id', function (req, res) {
+
+router.get('/wish/user/:id', function (req, res) {
 
         facade.getUserByWishID(req.params.id, function (err, user) {
             if (err) {
@@ -290,6 +291,25 @@ router.put('/:id', function (req, res) {
 //
 //})
 
+router.put('/adminApi/userAdmin/:id', function (req, res) {
+
+    var changingUser = req.body;
+    console.log("changingUser"+req.body)
+
+    userfacade.editUser(req.params.id, req.body, function (err, user) {
+        console.log("inside update user")
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+
+
 //get Wish from WishID
 router.get('/wishes/:id',function(req,res){
     console.log("inside /wishes/id")
@@ -304,16 +324,61 @@ router.get('/wishes/:id',function(req,res){
     })
 })
 
-router.put('/buy/:id', function (req, res) {
+// Remove wish
+//router.put('/wishes/:id',function(req,res){
+//
+//    facade.removeWish(req.params.id , function(err, wishes) {
+//        if (err) {
+//            res.status(err.status || 500);
+//            res.end(JSON.stringify({error: err.toString()}));
+//            return;
+//        }
+//        res.header("Content-type", "application/json");
+//        res.end(JSON.stringify(wishes));
+//    })
+//})
+
+// add user to friendlist
+router.put('/addfriend/:id',function(req,res){
+console.log("inside add to friend api")
+
+    console.log(req.body)
+    facade.addToFriendList(req.params.id,req.body , function(err, friends) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(friends));
+    })
+})
+
+
+// Add to ToBuyList wish
+router.put('/buy/wish/:id', function (req, res) {
+
+    facade.buyWish(req.params.id,req.body, function (err, user) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringfy({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
+router.put('/addToBuyList/wish/:id', function (req, res) {
 
     var buyer = req.body;
     console.log(req.body)
 
-    facade.updateBuyer(req.params.id, req.body, function (err, user) {
+    facade.getWishByID(req.params.id, req.body, function (err, user) {
         console.log("inside update")
         if (err) {
             res.status(err.status || 500);
-            res.end(JSON.stringfy({error: err.toString()}));
+            res.end(JSON.stringify({error: err.toString()}));
             return;
         }
         res.header("Content-type", "application/json");

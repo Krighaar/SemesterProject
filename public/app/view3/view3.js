@@ -43,7 +43,7 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
 
         $scope.createWish = function createWish(wish) {
-            console.log('create wish')
+
             console.log($scope.newWish._id)
             if ($scope.newWish._id != null) {
 
@@ -51,14 +51,15 @@ angular.module('myAppRename.view3', ['ngRoute'])
                 //wishFactory.updateWish($scope.newWish._id, $scope.newWish)
                 $scope.newWish=null;
 
+                //Creating wishes isn't finished, needs a lot of polishing, existing bugs
 
             }
             else {
 
                 wishFactory.createWish(wish, idUserLoggedIn).success(function () {
-                    $scope.status = 'Inserted Customer! Refreshing customer list.';
+                        $scope.status = 'Inserted Customer! Refreshing customer list.';
 
-                }).
+                    }).
                     error(function (error) {
                         $scope.status = 'Unable to insert customer: ' + error.message;
                     });

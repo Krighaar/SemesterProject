@@ -75,6 +75,24 @@ app.factory('wishFactory', ['$http', function ($http) {
     wishFactory.getUserFromWishId = function(id){
         return $http.get(urlBase +'/wish/user/'+id)
     }
+
+    //add friend til friend lsit
+    wishFactory.addFriendToList = function(id,friendName){
+        console.log(id)
+        return $http.put(urlBase+'/addfriend/'+id,friendName);
+    }
+
+    //
+    wishFactory.addWishToBuyList = function(id,wish){
+        console.log("id is: "+id)
+        console.log("wish is: "+wish)
+        return $http.put(urlBase+'/addToBuyList/wish/'+id,wish)
+    }
+
+    wishFactory.buyWish = function(wishId, bought){
+        return $http.put(urlBase+'/buy/wish/'+wishId,bought)
+    }
+
     return wishFactory;
 }]);
 
@@ -94,6 +112,9 @@ app.factory('userFactory', ['$http', function ($http) {
         return $http.post(urlBase,userjson)
     }
 
+    userFactory.getAllUsers = function(){
+        return $http.get('adminApi/')
+    }
 
     return userFactory;
 }]);

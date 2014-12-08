@@ -17,7 +17,7 @@ function getUsers(callback) {
 
 //get User from @userName - TESTED
 function getUser(userName, callback) {
-
+console.log("find username: "+userName)
     user.find({userName: userName}, function (err, user) {
         if (err) {
             return callback(err)
@@ -76,16 +76,17 @@ function addWish(id, wish, callback) {
 
 }
 
-//Get wishes by wishID
-function getWishByID(wishID, callback) {
+//Get update wish bvuyer (by wishID)
+function getWishByID(wishID, buyerName, callback) {
     console.log("inside getWIshID " + wishID)
-    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { 'wishes.$.buyer': 'new buyer' }},{safe: true, upsert: true}, function (err, wishes) {
+    user.findOneAndUpdate({'wishes._id':wishID},{ $set: { 'wishes.$.buyer': buyerName.buyer }},{safe: true, upsert: true}, function (err, wishes) {
         if (err) {
             return callback(err)
         }
         callback(null, wishes)
     })
 }
+
 
 //WIP, near completion, but there is a serious issue
 //function updateWish (id, wish, callback)
@@ -128,7 +129,7 @@ function getUserByWishID(wishID, callback) {
 }
 
 function updateBuyer(id, buyerUserName, callback) {
-    user.update({'wishes.title': id}, {$set: {wishes: {buyer: buyerUserName}}}, function (err, result) {
+    user.update({'wishes._id': id}, {$set: {'wishes._id': {buyer: buyerUserName}}}, function (err, result) {
         if (err) {
             return callback(err)
         }
@@ -136,6 +137,14 @@ function updateBuyer(id, buyerUserName, callback) {
     })
 }
 
+function buyWish(wishId, bought, callback) {
+    user.findOneAndUpdate({'wishes._id': wishId}, {$set: {'wishes.$.bought' : bought.bought}}, function (err, result) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, result)
+    })
+}
 
 function findbyID(id, wishTitle, callback) {
     console.log("inside findID")
@@ -145,6 +154,27 @@ function findbyID(id, wishTitle, callback) {
         }
         callback(null, wishes)
     });
+}
+
+// remove wish
+function removeWish(wishID, callback) {
+    console.log("inside getWIshID " + wishID)
+    user.findOneAndUpdate({'wishes._id':wishID},{ $pull: { 'wishes.$._id': wishID}},{safe: true, upsert: true}, function (err, wishes) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, wishes)
+    })
+}
+
+function addToFriendList(userId,friendName, callback){
+
+    user.findByIdAndUpdate(userId,{ $push: { friends: friendName}},{safe: true, upsert: true}, function (err, wishes) {
+    if (err) {
+        return callback(err)
+    }
+    callback(null, wishes)
+})
 }
 
 module.exports = {
@@ -158,8 +188,9 @@ module.exports = {
     findById: findbyID,
     updateBuyer: updateBuyer,
     getUserByWishID: getUserByWishID,
-    removeWish: removeWish,
-    updateWish: updateWish
+    removeWish:removeWish,
+    addToFriendList:addToFriendList,
+    buyWish:buyWish
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories

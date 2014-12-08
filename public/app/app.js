@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('myAppRename', [
   'ngRoute',
+  'ui.bootstrap',
   'myAppRename.controllers',
   'myAppRename.directives',
   'myAppRename.services',
@@ -13,6 +14,7 @@ angular.module('myAppRename', [
   'myAppRename.view3',
   'myAppRename.view4',
   'myAppRename.view5',
+  'myAppRename.view7',
   'myAppRename.view8'
 ]).
 config(['$routeProvider', function($routeProvider) {
