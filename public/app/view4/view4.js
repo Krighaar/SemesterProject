@@ -33,45 +33,27 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 .error(function(){
             console.log("not succes")})
         }
+if($scope.isAuthenticated) {
+    getUserBuyList();
+    $scope.list = [];
 
-        getUserBuyList();
+    wishFactory.getUser($scope.username).success(function (user) {
 
-        //$scope.updateTobuyList = function () {
-        //    $scope.buyerList = []
-        //    wishFactory.getWish().success(function (allWishes) {
-        //        for (var i = 0; i < allWishes.length; i++) {
-        //            if (allWishes[i].buyer === $scope.username) {
-        //                console.log("insde for: " + JSON.stringify(allWishes[i]))
-        //                $scope.buyerList.push(allWishes[i]);
-        //            }
-        //        }
-        //    })
-        //}
+        $scope.userInScope = user[0];
+        $scope.UserInScopeID = $scope.userInScope._id;
+        console.log("user in scope " + $scope.UserInScopeID);
 
+        console.log(user.friends);
 
-        $scope.list = [];
-        //$scope.updateTobuyList();
-
-
-        wishFactory.getUser($scope.username).success(function (user) {
-
-            $scope.userInScope = user[0];
-            $scope.UserInScopeID = $scope.userInScope._id;
-            console.log("user in scope " + $scope.UserInScopeID);
-
-            console.log(user.friends);
-            //})
-            //    .error(function (error) {
-            //        $scope.status = "unable to get friendList"
-            //    })
-
-            wishFactory.getFriends($scope.UserInScopeID).success(function (friends) {
-                $scope.friendList = friends;
-            })
-                .error(function (error) {
-                    $scope.status = "unable to get friend List"
-                })
+        wishFactory.getFriends($scope.UserInScopeID).success(function (friends) {
+            $scope.friendList = friends;
         })
+            .error(function (error) {
+                $scope.status = "unable to get friend List"
+            })
+    })
+
+}
         $scope.remove = function remove(id, wishTitle) {
             wishFactory.removeWish(id, wishTitle).success(function(){
 
@@ -120,6 +102,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
         }
 
         $scope.update = function () {
+            if($scope.isAuthenticated){
             $scope.friendsWishes = [];
             $scope.friend = $scope.friendSelected
             console.log("update, friends selected: " + $scope.friendSelected)
@@ -144,7 +127,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
                 })
 
             })
-
+            }
         }
         //$scope.update();
 
