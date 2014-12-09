@@ -61,7 +61,7 @@ function getFriends(id, callback) {
 };
 
 //TODO test this !
-//update wish
+//update wish TESTED
 function addWish(id, wish, callback) {
     console.log("creating wish for id: " + id)
     console.log("creating wish: " + JSON.stringify(wish));
@@ -92,13 +92,15 @@ function getWishByID(wishID, buyerName, callback) {
 function updateWish (id, wish, callback)
 {
     console.log('id: '+id)
-    console.log('wish:'+wish)
+    console.log('wish:'+JSON.stringify(wish))
 
-    user.findOneAndUpdate({'wishes._id': id}, {$set: {'wishes.$.description': wish.description, 'wishes.$.title': wish.title, 'wishes.$.link':wish.link, 'wishes.$.price':wish.price}}, function (err) {
-        console.log("inside update")
+    user.findOneAndUpdate({'wishes._id': id}, {$set: {'wishes.$.description': wish.description, 'wishes.$.title': wish.title, 'wishes.$.link':wish.link, 'wishes.$.price':wish.price}}, function (err, result) {
         if (err) {
+            console.log("printing inside update wish err= "+err)
             return callback(err);
         }
+        console.log("printing inside update wish result= "+result)
+        callback(null, result)
     })
 }
 

@@ -14,9 +14,9 @@ var User = mongoose.model("User");
 var wish = require('../../server/model/wish')
 
 /*
-    #By request from LAM we have created the Facade Test in seperate File
-    ##The file we are testing in here is the wish.js
-*/
+ #By request from LAM we have created the Facade Test in seperate File
+ ##The file we are testing in here is the wish.js
+ */
 describe('Testing facade - Get ALL users', function () {
     //Start the Server before the TESTS
 
@@ -545,7 +545,7 @@ describe('Testing facade - Get Wish list from one user', function () {
                 wish.getWishFromUser(id[0]._id, function (err, result) {
                         if (err)
                             return "error: " + err
-                     console.log("wishes in john: "+result)
+                        console.log("wishes in john: " + result)
                         result.length.should.equal(2);
                         done();
                     }
@@ -554,4 +554,209 @@ describe('Testing facade - Get Wish list from one user', function () {
 
         }
     )
+});
+
+describe('Testing facade - Modify a wish', function () {
+    this.timeout(30000)
+    //Start the Server before the TESTS
+
+    before(function (done) {
+        testServer = app.listen(testPort, function () {
+            console.log("Server is listening on: " + testPort);
+            done();
+        })
+            .on('error', function (err) {
+                console.log(err);
+            });
+    })
+
+    beforeEach(function (done) {
+
+        User.remove({}, function () {
+            var user1 = {
+
+                "userName": "Jack",
+                "wishes": [
+                    {
+                        "title": "wish a",
+                        "description": "desc wish a",
+                        "size": "no size",
+                        "price": 500,
+                        "link": "no link",
+                        "bought": false,
+                        "buyer": ""
+                    }
+                ],
+                "friends": [
+                    {
+                        "user": "John"
+                    },
+                    {
+                        "user": "Smith"
+                    }
+                ]
+            };
+            var user2 = {
+
+                "userName": "John",
+                "wishes": [
+                    {
+                        "title": "wish ba",
+                        "description": "desc wish ba",
+                        "size": "no size",
+                        "price": 500,
+                        "link": "no link",
+                        "bought": false,
+                        "buyer": ""
+                    },
+                    {
+                        "title": "wish bb",
+                        "description": "desc wish bb",
+                        "size": "no size",
+                        "price": 500,
+                        "link": "no link",
+                        "bought": false,
+                        "buyer": "Jack"
+                    }
+
+                ],
+                "friends": [
+                    {
+
+                        "user": "Jack"
+                    }
+                ]
+            };
+            var user3 = {
+
+                "userName": "Smith",
+                "wishes": [
+                    {
+                        "title": "wish c",
+                        "description": "desc wish c",
+                        "price": 500,
+                        "link": "no link",
+                        "bought": false,
+                        "buyer": ""
+                    }
+                ],
+                "friends": [
+                    {
+
+                        "user": ""
+                    }
+                ]
+            };
+            User.create(user1, function (err) {
+                User.create(user2, function (err) {
+                    User.create(user3, function (err) {
+                        done()
+                    })
+                });
+
+            });
+        })
+    })
+
+
+    after(function () {  //Stop server after the test
+        //Uncomment the line below to completely remove the database, leaving the mongoose instance as before the tests
+        mongoose.connection.db.dropDatabase();
+        testServer.close();
+    })
+
+    it("should return 1 wish with Title wish c", function (done) {
+            this.timeout(30000)
+            //var wishResult;
+
+            wish.getUser('Smith', function (err, user) {
+                if (err)
+                    return "error: " + err
+
+                console.log("writing user: " + user)
+
+                //wish.getWishFromUser(id[0]._id).success(function (result) {
+                //        console.log("printing result: "+result)
+                //        result[0].title.should.equal('wish c');
+                //        console.log("wish result: " + result[0])
+                //        wishResult = result[0];
+                //
+                //
+                //        var modifiedWish = {
+                //            "title": "wish changed",
+                //            "description": wishResult.description,
+                //            "price": wishResult.price,
+                //            "bought": wishResult.bought,
+                //            "buyer": wishResult.buyer
+                //
+                //        }
+                //
+                //
+                //        wish.updateWish(wishResult._id, modifiedWish, function (err, result) {
+                //            if (err) {
+                //                return "error: " + err
+                //            }
+                //            result.should.equal(1)
+                //            done();
+                //        })
+                //    }
+                //)
+                //done();
+
+
+                wish.getWishFromUser(user[0]._id, function (err, result) {
+                    if (err)
+                        return "error: " + err
+                    console.log(result)
+                    result[0].title.should.equal('wish c');
+                    console.log("wish result: " + JSON.stringify(result[0]))
+                    wishResult = result[0];
+                    console.log("printing wishResult: "+wishResult)
+
+                    modifiedWish = {
+                        "title": "wish changed",
+                        "description": wishResult.description,
+                        "size": wishResult.size,
+                        "price": wishResult.price,
+                        "link": wishResult.link,
+                        "bought": wishResult.bought,
+                        "buyer": wishResult.buyer,
+                        _id: wishResult._id
+                    }
+
+                    wish.updateWish(wishResult._id, modifiedWish, function (err, result) {
+                        if (err) {
+                            console.log("eror "+err)
+                            return "error: " + err
+                        }
+                        console.log("printing result in test " + result);
+                        //result[0].wishes[0].title.equal("wish changed")
+
+                    })
+
+                })
+                done();
+
+
+            });
+        }
+    )
+    //it("should return 1 wish with Title wish c", function (done) {
+    //        wish.getUser('Smith', function (err, id) {
+    //            if (err) {
+    //                return "error: " + err
+    //            }
+    //
+    //            wish.getWishFromUser(id[0]._id, function (err, result) {
+    //                    if (err)
+    //                        return "error: " + err
+    //                    console.log(result)
+    //                    result[0].title.should.equal('wish c');
+    //                    wish = result[0].title.should.equal('wish c');
+    //                    done();
+    //                }
+    //            )
+    //        });
+    //    }
+    //)
 });
