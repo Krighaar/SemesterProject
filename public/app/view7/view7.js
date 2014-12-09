@@ -17,13 +17,13 @@ var currentRole;
       $scope.editUser = function () {
 
         if($scope.isAdmin)
-        {currentRole="user"}
-        else
         {currentRole="superUser"}
+        else
+        {currentRole="user"}
 
         changingUser.userName=$scope.username;
         changingUser.role=currentRole;
-        changingUser.pw=SHA256($scope.changingpw);
+        changingUser.pw=$scope.changingpw;
 
         console.log(changingUser)
               $http.put("/editUser",changingUser)

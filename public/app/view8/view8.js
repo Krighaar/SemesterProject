@@ -11,7 +11,7 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 .controller('View8Ctrl',['$scope', '$http','userFactory', function ($scope, $http,userFactory) {
 
-
+        $scope.error="";
 
 
       $scope.addUser = function (addinguser) {
@@ -29,9 +29,11 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 
           if(!alreadyFound){
-        addinguser.pw=SHA256($scope.addingpw);
+        //addinguser.pw=SHA256($scope.addingpw);
+              addinguser.pw=$scope.addingpw;
           console.log(JSON.stringify(addinguser))
       userFactory.addUser(addinguser).success(function (addeduser) {
+
 
 
               $http.post("/createUser",addinguser)

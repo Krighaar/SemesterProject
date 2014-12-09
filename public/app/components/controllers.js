@@ -34,8 +34,7 @@ angular.module('myAppRename.controllers',[]).
 
 
     $scope.submit = function () {
-      $scope.user.pw =SHA256($scope.user.pw);
-      console.log("req.body.pw "+JSON.stringify($scope.user.pw))
+      console.log($scope.user)
       $http
         .post('/authenticate', $scope.user)
         .success(function (data, status, headers, config) {
@@ -60,7 +59,7 @@ angular.module('myAppRename.controllers',[]).
 
         })
         .error(function (data, status, headers, config) {
-            console.log("failed")
+            console.log("failed" + data)
           //Erase the token if the user fails to log in
           delete $window.sessionStorage.token;
           $scope.isAuthenticated = false;
