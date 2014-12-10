@@ -667,51 +667,22 @@ describe('Testing facade - Modify a wish', function () {
 
     it("should return 1 wish with Title wish c", function (done) {
             this.timeout(30000)
-            //var wishResult;
 
             wish.getUser('Smith', function (err, user) {
                 if (err)
                     return "error: " + err
 
-                console.log("writing user: " + user)
-
-                //wish.getWishFromUser(id[0]._id).success(function (result) {
-                //        console.log("printing result: "+result)
-                //        result[0].title.should.equal('wish c');
-                //        console.log("wish result: " + result[0])
-                //        wishResult = result[0];
-                //
-                //
-                //        var modifiedWish = {
-                //            "title": "wish changed",
-                //            "description": wishResult.description,
-                //            "price": wishResult.price,
-                //            "bought": wishResult.bought,
-                //            "buyer": wishResult.buyer
-                //
-                //        }
-                //
-                //
-                //        wish.updateWish(wishResult._id, modifiedWish, function (err, result) {
-                //            if (err) {
-                //                return "error: " + err
-                //            }
-                //            result.should.equal(1)
-                //            done();
-                //        })
-                //    }
-                //)
-                //done();
+                //console.log("writing user: " + user)
 
 
                 wish.getWishFromUser(user[0]._id, function (err, result) {
                     if (err)
                         return "error: " + err
-                    console.log(result)
+                    //console.log(result)
                     result[0].title.should.equal('wish c');
-                    console.log("wish result: " + JSON.stringify(result[0]))
-                    wishResult = result[0];
-                    console.log("printing wishResult: "+wishResult)
+                    //console.log("wish result: " + JSON.stringify(result[0]))
+                    var wishResult = result[0];
+                    //console.log("printing wishResult: "+wishResult)
 
                     modifiedWish = {
                         "title": "wish changed",
@@ -730,12 +701,12 @@ describe('Testing facade - Modify a wish', function () {
                             return "error: " + err
                         }
                         console.log("printing result in test " + result);
-                        //result[0].wishes[0].title.equal("wish changed")
+                        result.wishes[0].title.should.equal("wish changed")
 
+                        done();
                     })
 
                 })
-                done();
 
 
             });
