@@ -169,6 +169,18 @@ function addToFriendList(userId,friendName, callback){
 })
 }
 
+
+function removeFromFriendList(userId,friendName, callback){
+
+    user.findByIdAndUpdate(userId,{ $pull: { friends: friendName}},{safe: true, upsert: true}, function (err, wishes) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, wishes)
+    })
+}
+
+
 module.exports = {
     getUsers: getUsers,
     getUser: getUser,
@@ -183,7 +195,8 @@ module.exports = {
     removeWish:removeWish,
     addToFriendList:addToFriendList,
     buyWish:buyWish,
-    updateWish: updateWish
+    updateWish: updateWish,
+    removeFromFriendList:removeFromFriendList
     //findWiki: findWiki,
     //getWikisWithCategory: getWikisWithCategory,
     //getCategories: getCategories
