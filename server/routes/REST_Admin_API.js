@@ -132,10 +132,17 @@ var usernameTodelete=user.userName;
 
                     {console.log("found "+usernameTodelete)
                         var deletinguser={user:usernameTodelete};
-                    facade.removeFromFriendList(users[i]._id,deletinguser,function(err,result){
+                       facade.removeFromFriendList(users[i]._id,deletinguser,function(err,result){
 
-                        console.log("success "+result)
-                    })}
+                        console.log("friend remove success "+result)
+                    })
+
+                        facade.getWishByID(users[i]._id, "", function(err,result){
+
+                            console.log("buyer remove success "+result)
+                        })
+
+                    }
                 }
 
             }
@@ -375,7 +382,21 @@ console.log("inside add to friend api")
         res.end(JSON.stringify(friends));
     })
 })
+// remove user to friendlist
+router.put('/removefriend/:id',function(req,res){
+    console.log("inside add to friend api")
 
+    console.log(req.body)
+    facade.removeFromFriendList(req.params.id,req.body , function(err, deletedFriend) {
+        if (err) {
+            res.status(err.status || 500);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(deletedFriend));
+    })
+})
 
 // Add to ToBuyList wish
 router.put('/buy/wish/:id', function (req, res) {

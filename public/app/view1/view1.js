@@ -55,7 +55,7 @@ angular.module('myAppRename.view1', ['ngRoute'])
                 var theUser = {
                     user: user
                 }
-console.log(id)
+                console.log(id)
                 wishFactory.addFriendToList(id, theUser).success(function () {
                     $scope.status = 'Inserted user to friendslist!';
                 }).
@@ -64,4 +64,31 @@ console.log(id)
                     });
             });
         }
+
+
+        $scope.removeFriend=function (user){
+
+            wishFactory.getUser($scope.username).success(function (currentUser) {
+
+                var id = currentUser[0]._id;//'547f81a51bbb964c2195d3c4'
+                var theUser = {
+                    user: user
+                }
+
+
+            wishFactory.removeFriendFromList(id,theUser).success(function(){
+
+                $scope.status = 'Removed user from friendslist!';
+            }). error(function (error) {
+                    $scope.status = 'Unable to remove user from friendlist: ' + error.message;
+                });
+            })
+
+
+
+
+        }
+
+
+
 }]);

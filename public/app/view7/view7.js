@@ -10,12 +10,12 @@ angular.module('myAppRename.view7', ['ngRoute'])
   }])
   .controller('View7Ctrl', ['$scope', '$http','wishFactory','userFactory', function ($scope, $http,wishFactory,userFactory) {
 
-
+        $scope.error="";
 var changingUser={};
 var currentRole;
 
       $scope.editUser = function () {
-
+$scope.error="";
         if($scope.isAdmin)
         {currentRole="superUser"}
         else
@@ -25,6 +25,10 @@ var currentRole;
         changingUser.role=currentRole;
         changingUser.pw=$scope.changingpw;
 
+          if(changingUser.pw==undefined)
+          {$scope.error="Password cannot be empty"
+          }
+else{
         console.log(changingUser)
               $http.put("/editUser",changingUser)
                   .success(function(data,status, headers,config){
@@ -45,5 +49,5 @@ var currentRole;
               $scope.changingUser="";
               $scope.changingpw="";
 
-            }
+            }}
   }]);

@@ -34,7 +34,15 @@ angular.module('myAppRename.controllers',[]).
 
 
     $scope.submit = function () {
-      console.log($scope.user)
+
+
+     if ($scope.user==undefined)
+     {$scope.error="Username and Password cannot be empty"
+     }
+      else if($scope.user.pw==undefined||$scope.user.userName==undefined)
+      {$scope.error="Username and Password cannot be empty"
+      }
+      else{
       $http
         .post('/authenticate', $scope.user)
         .success(function (data, status, headers, config) {
@@ -65,7 +73,7 @@ angular.module('myAppRename.controllers',[]).
           $scope.isAuthenticated = false;
           $scope.user= null;
           $scope.error = 'You failed to login. Invalid User or Password';
-        });
+        });}
     };
 
 

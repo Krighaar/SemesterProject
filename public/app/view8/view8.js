@@ -15,7 +15,11 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 
       $scope.addUser = function (addinguser) {
-
+if(addinguser==undefined)
+{$scope.error="Username and Password cannot be empty"}
+          else if(addinguser.userName==undefined||addinguser.pw==undefined)
+{$scope.error="Username and Password cannot be empty"}
+          else{
           userFactory.getAllUsers().success(function(users) {
               $scope.allUsers = users;
           var alreadyFound=false;
@@ -70,6 +74,6 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 
 
-
+      }
 
     }]);

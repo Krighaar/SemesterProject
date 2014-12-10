@@ -81,7 +81,11 @@ app.factory('wishFactory', ['$http', function ($http) {
         console.log(id)
         return $http.put(urlBase+'/addfriend/'+id,friendName);
     }
-
+    //remove friend from friend list
+    wishFactory.removeFriendFromList = function(id,friendName){
+        console.log(id)
+        return $http.put(urlBase+'/removefriend/'+id,friendName);
+    }
     //
     wishFactory.addWishToBuyList = function(id,wish){
         console.log("id is: "+id)
