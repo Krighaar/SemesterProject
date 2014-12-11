@@ -29,7 +29,6 @@ angular.module('myAppRename.controllers',[]).
     $scope.message = '';
     $scope.error = null;
       $scope.isSuper=false;
-    delete $window.sessionStorage.token; //Erases token when reloading page, temporary fix for authentication problems
 
 
 
