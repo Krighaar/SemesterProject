@@ -34,13 +34,6 @@ function deleteUser(id,callback) {
             }
             callback(null, user);
         })
-
-
-
-
-
-
-
     }
 
 

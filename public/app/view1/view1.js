@@ -59,7 +59,7 @@ if($scope.isAuthenticated)
                 }
                 console.log("adding friend "+id)
                 wishFactory.addFriendToList(id, theUser).success(function () {
-                    $scope.status = 'Inserted user to friendslist!';
+                    $scope.status = 'user added to friendlist!';
                 }).
                     error(function (error) {
                         $scope.status = 'Unable to insert user to friendlist: ' + error.message;

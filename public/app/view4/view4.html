@@ -16,6 +16,7 @@
     <br/>
     <br/>
     <br/>
+
     <p class="alert-danger">{{messageIfWishListIsEmpty}}</p>
     <table class=" table table-striped">
         <thead>
@@ -28,7 +29,9 @@
         </thead>
         <tbody>
         <tr ng-repeat="wish in friendsWishes | emptyWishlist track by $index">
-            <td><button type="button" class="btn btn-success" ng-click="addWishToBuyList(wish)">Add ToBuyList</button></td>
+            <td>
+                <button type="button" class="btn btn-success" ng-click="addWishToBuyList(wish)">Add ToBuyList</button>
+            </td>
             <td>{{wish.title}}</td>
             <td>{{wish.price}}</td>
             <td>{{wish.description}}</td>
@@ -38,28 +41,34 @@
         </tbody>
     </table>
 
+
+    <h2>TO BUY LIST</h2>
+    <table class=" table table-striped">
+        <thead>
+        <th>Buy || Release wish</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Owner</th>
+        <th>Link</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="wishToBuy in buyerList">
+            <td>
+                <button type="button" class="btn btn-success" ng-click="buyWish(wishToBuy)">BUY</button>
+                ||
+                <button type="button" class="btn btn-danger" ng-click="releaseWish(wishToBuy)">Release</button>
+            </td>
+            <td>{{wishToBuy.title}}</td>
+            <td>{{wishToBuy.price}}</td>
+            <td>{{wishToBuy.description}}</td>
+            <td>{{wishToBuy.userName}}</td>
+            <td><a target="_blank" href="http://{{wishToBuy.link}}">{{wishToBuy.link}}</a></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
-<h2>TO BUY LIST</h2>
-<table class=" table table-striped">
-    <thead>
-    <th>Buy || Release wish</th>
-    <th>Title</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Owner</th>
-    <th>Link</th>
-    </thead>
-    <tbody>
-    <tr ng-repeat="wishToBuy in buyerList">
-        <td><button type="button" class="btn btn-success" ng-click="buyWish(wishToBuy)">BUY</button> || <button type="button" class="btn btn-danger" ng-click="releaseWish(wishToBuy)">Release</button></td>
-        <td>{{wishToBuy.title}}</td>
-        <td>{{wishToBuy.price}}</td>
-        <td>{{wishToBuy.description}}</td>
-        <td>{{wishToBuy.owner}}</td>
-        <td><a target="_blank" href="http://{{wishToBuy.link}}">{{wishToBuy.link}}</a></td>
-    </tr>
-    </tbody>
-</table>
 <!--<select ng-options="size as size.owner for size in fList"-->
 <!--ng-model="item" ng-change="update()"></select>-->
 

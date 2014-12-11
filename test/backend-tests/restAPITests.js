@@ -532,7 +532,7 @@ describe('RestAPI get friendlist from one user by userName', function () {
 })
 
 describe('RestAPI for Buy list, with a userName as buyer', function () {
-this.timeout(15000)
+    this.timeout(15000)
     //Start the Server before the TESTS
     before(function (done) {
         testServer = app.listen(testPort, function () {
@@ -640,7 +640,7 @@ this.timeout(15000)
     })
 
     it("should return 1 result with Username John", function (done) {
-        var buyerList=[]
+        var buyerList = []
         http.get("http://localhost:" + testPort + "/adminAPI/wish", function (res) {
             res.setEncoding("utf8");//response data is now a string
             res.on("data", function (chunk) {
@@ -656,16 +656,16 @@ this.timeout(15000)
                 }
 
 
-                        buyerList.length.should.equal(1);
-                        done();
-
-                    });
+                buyerList.length.should.equal(1);
+                done();
 
             });
+
         });
+    });
     //});
     it("should return 1 result with Username Jack", function (done) {
-        var buyerList=[]
+        var buyerList = []
         http.get("http://localhost:" + testPort + "/adminAPI/wish", function (res) {
             res.setEncoding("utf8");//response data is now a string
             res.on("data", function (chunk) {

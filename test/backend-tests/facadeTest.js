@@ -672,17 +672,12 @@ describe('Testing facade - Modify a wish', function () {
                 if (err)
                     return "error: " + err
 
-                //console.log("writing user: " + user)
-
-
                 wish.getWishFromUser(user[0]._id, function (err, result) {
                     if (err)
                         return "error: " + err
-                    //console.log(result)
                     result[0].title.should.equal('wish c');
-                    //console.log("wish result: " + JSON.stringify(result[0]))
                     var wishResult = result[0];
-                    //console.log("printing wishResult: "+wishResult)
+
 
                     modifiedWish = {
                         "title": "wish changed",
@@ -712,22 +707,5 @@ describe('Testing facade - Modify a wish', function () {
             });
         }
     )
-    //it("should return 1 wish with Title wish c", function (done) {
-    //        wish.getUser('Smith', function (err, id) {
-    //            if (err) {
-    //                return "error: " + err
-    //            }
-    //
-    //            wish.getWishFromUser(id[0]._id, function (err, result) {
-    //                    if (err)
-    //                        return "error: " + err
-    //                    console.log(result)
-    //                    result[0].title.should.equal('wish c');
-    //                    wish = result[0].title.should.equal('wish c');
-    //                    done();
-    //                }
-    //            )
-    //        });
-    //    }
-    //)
+
 });

@@ -9,7 +9,8 @@
     <select data-ng-model="selectedUser">
         <option ng-repeat="user in AllUsers | filter: userFilter">{{user.userName}}</option>
 
-    </select> <button class="glyphicon glyphicon-plus" title="add to friendlist" ng-click="addFriend(selectedUser)"></button>      </div>
+    </select> <button class="glyphicon glyphicon-plus" title="add to friendlist" ng-click="addFriend(selectedUser)"></button> <span>add user <span class="alert-success">{{status}}</span></span>
+    </div>
     <h3>All wishes</h3>
     <table class=" table table-striped">
         <thead>
