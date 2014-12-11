@@ -123,6 +123,7 @@ if($scope.isAuthenticated) {
                     if(!$scope.friendsWishes.length>0){
                         $scope.messageIfWishListIsEmpty = "Sorry now wishes is available for this user."
                     }
+                    else{$scope.messageIfWishListIsEmpty =""}
 
                 })
 
