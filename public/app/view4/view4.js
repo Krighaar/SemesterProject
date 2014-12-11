@@ -164,7 +164,7 @@ if($scope.isAuthenticated) {
 
 
         $scope.removeFriend=function (user){
-console.log($scope.username)
+
 
             wishFactory.getUser($scope.username).success(function (currentUser) {
 
@@ -178,6 +178,15 @@ console.log ("the selected user "+theSelectedUser)
                 wishFactory.removeFriendFromList(id,theSelectedUser).success(function(){
 
                     $scope.status = 'Removed user from friendslist!';
+
+                    wishFactory.getFriends($scope.UserInScopeID).success(function (friends) {
+                        $scope.friendList = friends;
+                    })
+                        .error(function (error) {
+                            $scope.status = "unable to get friend List"
+                        })
+
+
                 }). error(function (error) {
                     $scope.status = 'Unable to remove user from friendlist: ' + error.message;
                 });

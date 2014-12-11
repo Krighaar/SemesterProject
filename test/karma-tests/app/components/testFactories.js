@@ -93,7 +93,7 @@ describe('testing wishFactory', function () {
   it('getWish should return promise and respond with allWishes"', function () {
     var resultWishes;
 
-    httpBackendMock.whenGET(url+"/wish").respond(200,wishes);
+    httpBackendMock.whenGET("/publicApi/wish").respond(200,wishes);
 
     factory.getWish().then(function(result){
       resultWishes=result;
@@ -107,18 +107,18 @@ describe('testing wishFactory', function () {
   });
 
   it('removeWish should return promise and respond with removedwish"', function () {
-    //var resultWish;
-    //var removingwish={title:"removed"};
-    //httpBackendMock.whenPUT(url+"/removed",removingwish).respond(200,removingwish);
-    //
-    //factory.removeWish("removed").then(function(result){
-    //  resultWish=result;
-    //
-    //});
-    //httpBackendMock.flush();
-    //expect(factory.removeWish().then).toBeDefined()
-    //expect(factory.removeWish().success).toBeDefined()
-    //expect(resultWish.data.title).toEqual("removed!")
+    var resultWish;
+    var removingwish={id:1,title:"removed"};
+    httpBackendMock.whenDELETE(url+"/wishes/1").respond(200,removingwish);
+
+    factory.removeWish(1).then(function(result){
+      resultWish=result;
+
+    });
+    httpBackendMock.flush();
+    expect(factory.removeWish().then).toBeDefined()
+    expect(factory.removeWish().success).toBeDefined()
+    expect(resultWish.data.title).toEqual("removed")
   });
 
   it('createWish should return promise and respond with createdwish"', function () {

@@ -18,7 +18,15 @@ angular.module('myAppRename.view1', ['ngRoute'])
 if($scope.isAuthenticated)
 {
       userFactory.getAllUsers().success(function (users) {
-        $scope.AllUsers = users;
+          var userarray=users;
+          for(var i=0;i<userarray.length;i++){
+              if( userarray[i].userName===$scope.username)
+              {userarray.splice(i, 1);}
+          }
+
+
+
+          $scope.AllUsers = userarray;
 
       });
 }
