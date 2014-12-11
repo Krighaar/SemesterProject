@@ -41,7 +41,7 @@ app.factory('wishFactory', ['$http', function ($http) {
     }
 
     wishFactory.getWish = function () {
-        return $http.get(urlBase + '/wish')
+        return $http.get( '/publicApi/wish')
     }
     wishFactory.removeWish=function(id) {
         console.log('wish id: '+id)

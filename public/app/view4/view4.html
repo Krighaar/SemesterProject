@@ -1,11 +1,12 @@
 <h1>Super users!</h1>
 
 <p>Welcome dear super user: {{username}}</p>
-{{status}}
+
 <select ng-model="friendSelected" ng-change="update()">
     <option ng-repeat=" wish in friendList" value="{{wish.user}}">{{wish.user}}</option>
-</select>
 
+</select><button class="glyphicon glyphicon-minus" title="remove from friendlist" ng-click="removeFriend(friendSelected)"></button>
+<p class="alert-success">{{status}}</p>
 <h3>You are logged in as {{username}}</h3>
 
 <div class="container">

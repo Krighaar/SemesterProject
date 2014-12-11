@@ -13,7 +13,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
     }]).controller('View4Ctrl', ['$scope', 'wishFactory',  function ($scope, wishFactory, emptyWishlist) {
 
         $scope.buyerList = []
-
+        $scope.status = "";
         $scope.messageIfWishListIsEmpty=""
 
 
@@ -160,6 +160,32 @@ if($scope.isAuthenticated) {
 
 
             })
+        }
+
+
+        $scope.removeFriend=function (user){
+console.log($scope.username)
+
+            wishFactory.getUser($scope.username).success(function (currentUser) {
+
+                var id = currentUser[0]._id;
+                console.log("id in remove friend "+id)
+                var theSelectedUser = {
+                    user: user
+                }
+console.log ("the selected user "+theSelectedUser)
+
+                wishFactory.removeFriendFromList(id,theSelectedUser).success(function(){
+
+                    $scope.status = 'Removed user from friendslist!';
+                }). error(function (error) {
+                    $scope.status = 'Unable to remove user from friendlist: ' + error.message;
+                });
+            })
+
+
+
+
         }
 
     }

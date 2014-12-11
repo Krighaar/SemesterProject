@@ -15,11 +15,13 @@ angular.module('myAppRename.view1', ['ngRoute'])
 
       var allCatArray = [];
       var filteredArray = [];
-
+if($scope.isAuthenticated)
+{
       userFactory.getAllUsers().success(function (users) {
         $scope.AllUsers = users;
 
       });
+}
       wishFactory.getWish().success(function(wishes){
         $scope.AllWishes = wishes;
 
@@ -55,7 +57,7 @@ angular.module('myAppRename.view1', ['ngRoute'])
                 var theUser = {
                     user: user
                 }
-                console.log(id)
+                console.log("adding friend "+id)
                 wishFactory.addFriendToList(id, theUser).success(function () {
                     $scope.status = 'Inserted user to friendslist!';
                 }).
@@ -66,28 +68,7 @@ angular.module('myAppRename.view1', ['ngRoute'])
         }
 
 
-        $scope.removeFriend=function (user){
 
-            wishFactory.getUser($scope.username).success(function (currentUser) {
-
-                var id = currentUser[0]._id;//'547f81a51bbb964c2195d3c4'
-                var theUser = {
-                    user: user
-                }
-
-
-            wishFactory.removeFriendFromList(id,theUser).success(function(){
-
-                $scope.status = 'Removed user from friendslist!';
-            }). error(function (error) {
-                    $scope.status = 'Unable to remove user from friendlist: ' + error.message;
-                });
-            })
-
-
-
-
-        }
 
 
 

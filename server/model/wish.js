@@ -172,7 +172,7 @@ function addToFriendList(userId,friendName, callback){
 
 function removeFromFriendList(userId,friendName, callback){
 
-    user.findByIdAndUpdate(userId,{ $pull: { friends: friendName}},{safe: true, upsert: true}, function (err, wishes) {
+    user.findByIdAndUpdate(userId,{ $pull: {'friends': friendName}},{safe: true, upsert: true}, function (err, wishes) {
         if (err) {
             return callback(err)
         }

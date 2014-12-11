@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var db = require("./model/db");
 var routes = require('./routes/index');
 var adminRest = require('./routes/REST_Admin_API');
-var userRest = require('./routes/REST_Users_API');
+var publicRest = require('./routes/REST_Public_API');
 //var session = require('express-session');
 
 var expressJwt = require('express-jwt');
@@ -17,7 +17,7 @@ var app = express();
 //We can skip Authentication from our Unit Tests, but NEVER in production
 if (process.env.NODE_ENV || typeof global.SKIP_AUTHENTICATION == "") {
 // Protected Routes (via /api routes with JWT)
-  app.use('/userApi', expressJwt({secret: require("./security/secrets").secretTokenUser}));
+  //app.use('/publicApi', expressJwt({secret: require("./security/secrets").secretTokenUser}));
   app.use('/adminApi', expressJwt({secret: require("./security/secrets").secretTokenAdmin}));
 }
 
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, '../public/app')));
 
 app.use('/', routes);
 app.use('/adminApi', adminRest);
-app.use('/userApi', userRest);
+app.use('/publicApi', publicRest);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
