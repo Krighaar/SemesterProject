@@ -53,10 +53,10 @@ angular.module('myAppRename.view8', ['ngRoute'])
                                         $scope.error = "Error has occured. The user just created is now removed. Please contact admin."
 
                                     })
-                                        .error(err)
+                                        .error(function(err)
                                     {
                                         $scope.error = "Error has occured. Please contact admin."
-                                    }
+                                    })
 
                                 })
                         })
