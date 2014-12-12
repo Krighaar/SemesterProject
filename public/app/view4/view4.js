@@ -23,7 +23,7 @@ angular.module('myAppRename.view4', ['ngRoute'])
             wishFactory.getWish().success(function (wishes) {
                 console.log("getting wishes in buyer list")
                 for (var i = 0; i < wishes.length; i++) {
-                    console.log("looking at wish: " + JSON.stringify(wishes[i]))
+                 //   console.log("looking at wish: " + JSON.stringify(wishes[i]))
                     if (wishes[i].buyer == $scope.username && !wishes[i].bought) {
                         $scope.buyerList.push(wishes[i]);
                     }

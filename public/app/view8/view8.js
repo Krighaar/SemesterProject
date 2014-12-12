@@ -37,31 +37,43 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
                     if (!alreadyFound) {
 
-                       // console.log(JSON.stringify(addinguser))
+                        // console.log(JSON.stringify(addinguser))
                         userFactory.addUser(addinguser).success(function (addeduser) {
 
                             $http.post("/createUser", addinguser)
                                 .success(function (data, status, headers, config) {
 
-
-                                    console.log("create success " + JSON.stringify(data))
+                                    console.log("create success ")
 
                                 })
                                 .error(function (data, status, headers, config) {
-                                  $scope.error="Something is wrong. If error continues, please contact admin."
+                                    $scope.error = "Something is wrong. If error continues, please contact admin."
                                     console.log("create error")
+                                    userFactory.removeUser(addeduser._id).success(function (deletedUser) {
+                                        $scope.error = "Error has occured. The user just created is now removed. Please contact admin."
 
+                                    })
+                                        .error(err)
+                                    {
+                                        $scope.error = "Error has occured. Please contact admin."
+                                    }
 
                                 })
-
-                            alert("You are added to Database")
-                            $scope.error = "";
-
-
-                            $scope.addingUser = "";
-                            $scope.addingpw = "";
-
                         })
+                            .error(function (err) {
+
+                                $scope.error = "Error has occured. Please contact admin."
+                            }
+                        )
+
+                        alert("You are added to Database")
+                        $scope.error = "";
+
+
+                        $scope.addingUser = "";
+                        $scope.addingpw = "";
+
+
                     }
                     else {
                         $scope.error = "The username is already exist. Please sign in or create an acount with another username"

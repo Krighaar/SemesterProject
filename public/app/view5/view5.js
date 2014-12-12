@@ -24,7 +24,7 @@ angular.module('myAppRename.view5', ['ngRoute'])
 
         userFactory.getAllUsers().success(function (users) {
                 $scope.allUsers = users;
-                console.log(JSON.stringify(users))
+               // console.log(JSON.stringify(users))
             }
         )
 
