@@ -6,26 +6,25 @@ var http = require('http');
 //var passwordHash = require('password-hash');
 
 
-
-
 /* GET home page. */
 router.get('/', function (req, res) {
     res.redirect("app/index.html")
 });
-router.post('/createUser',function(req,res){
-    console.log("req.body "+JSON.stringify(req.body))
-    req.body.role="user";
+router.post('/createUser', function (req, res) {
+    // console.log("req.body " + JSON.stringify(req.body))
+    req.body.role = "user";
 
-    console.log("putreq.body "+JSON.stringify(req.body))
+    //console.log("putreq.body " + JSON.stringify(req.body))
     var result = require('crypto').createHash('sha256').update(req.body.pw, "utf8").digest('hex')
-    console.log(result); //d7I986+YD1z
+    // console.log(result); //d7I986+YD1z
     req.body.pw = result;
 
 
-    require('crypto').randomBytes(16, function(ex, buf) {
+    require('crypto').randomBytes(16, function (ex, buf) {
         if (ex) throw ex;
-        console.log( buf.toString("hex"));
+        console.log(buf.toString("hex"));
     });
+
     var post_options = {
         host: 'sunnycop.cloudapp.net',
         port: '9876',
@@ -45,12 +44,12 @@ router.post('/createUser',function(req,res){
             console.log('Response: ' + chunk);
 
 
-
         });
-        res.on('error', function(err) {
+        res.on('error', function (err) {
             console(err.message)
 
-        ;});
+            ;
+        });
     });
 
     // post the data
@@ -59,10 +58,10 @@ router.post('/createUser',function(req,res){
 
 })
 
-router.put('/editUser',function(req,res){
-    console.log("putreq.body "+JSON.stringify(req.body))
+router.put('/editUser', function (req, res) {
+    // console.log("putreq.body " + JSON.stringify(req.body))
     var result = require('crypto').createHash('sha256').update(req.body.pw, "utf8").digest('hex')
-    console.log(result); //d7I986+YD1z
+    // console.log(result); //d7I986+YD1z
     req.body.pw = result;
 
     var put_options = {
@@ -84,12 +83,12 @@ router.put('/editUser',function(req,res){
             console.log('Response: ' + chunk);
 
 
-
         });
-        res.on('error', function(err) {
+        res.on('error', function (err) {
             console(err.message)
 
-            ;});
+            ;
+        });
     });
 
     // post the data
@@ -99,10 +98,8 @@ router.put('/editUser',function(req,res){
 })
 
 
-
-
-router.delete('/deleteUser',function(req,res){
-    console.log("req.body "+JSON.stringify(req.body))
+router.delete('/deleteUser', function (req, res) {
+    //  console.log("req.body " + JSON.stringify(req.body))
 
     var delete_options = {
         host: 'sunnycop.cloudapp.net',
@@ -122,8 +119,9 @@ router.delete('/deleteUser',function(req,res){
 
 
         });
-        res.on('error', function(err) {
-            cosole(err.message)        });
+        res.on('error', function (err) {
+            cosole(err.message)
+        });
     });
 
     // post the data
@@ -133,17 +131,15 @@ router.delete('/deleteUser',function(req,res){
 })
 
 
-
-
 router.post('/authenticate', function (req, resp) {
-var role
+    var role
     var response;
     //TODO: Go and get UserName Password from "somewhere"
     //if is invalid, return 401
     // if (req.body.username === 'student' && req.body.password === 'test') {
 
     var result = require('crypto').createHash('sha256').update(req.body.pw, "utf8").digest('hex')
-    console.log(result); //d7I986+YD1z
+    //console.log(result); //d7I986+YD1z
     req.body.pw = result;
 
 
@@ -163,14 +159,14 @@ var role
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('Response: ' + chunk);
-findRole(chunk);
+            findRole(chunk);
 
         });
         res.on('error', function (err) {
             console(err.message)
         });
     });
-console.log("loggingin body "+JSON.stringify(req.body))
+    //console.log("loggingin body " + JSON.stringify(req.body))
     // post the data
     post_req.write(JSON.stringify(req.body));
     post_req.end();
@@ -178,28 +174,27 @@ console.log("loggingin body "+JSON.stringify(req.body))
 //})
 
 
+    function findRole(chunk) {
+        switch (parseInt(chunk)) {
+            case 0:
+                role = null;
+                break;
+            case 1:
+                role = "admin";
+                break;
+            case 2:
+                role = "user";
+                break;
+            default:
+                role = null;
+        }
+        // console.log(role)
 
-function findRole(chunk){
-    switch (parseInt(chunk)) {
-        case 0:
-            role = null;
-            break;
-        case 1:
-            role = "admin";
-            break;
-        case 2:
-            role = "user";
-            break;
-        default:
-            role = null;
+        setRoles(role)
     }
-    console.log(role)
-
-    setRoles(role)
-}
 
 
-    function setRoles (role) {
+    function setRoles(role) {
         var profile = {
             username: req.body.userName,
             role: role
@@ -207,13 +202,13 @@ function findRole(chunk){
 
 
         if (role === 'user') {
-            console.log('inside userToken')
+            // console.log('inside userToken')
             // We are sending the profile inside the token
             var token = jwt.sign(profile, require("../security/secrets").secretTokenUser, {expiresInMinutes: 60 * 5});
             resp.json({token: token});
             return;
         } else if (role === 'admin') {
-            console.log('inside AdminToken')
+            //console.log('inside AdminToken')
             // We are sending the profile inside the token
             var token = jwt.sign(profile, require("../security/secrets").secretTokenAdmin, {expiresInMinutes: 60 * 5});
             resp.json({token: token});
@@ -227,7 +222,6 @@ function findRole(chunk){
     }
 
 });
-
 
 
 //Get Partials made as Views

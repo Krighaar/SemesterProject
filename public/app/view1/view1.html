@@ -1,15 +1,18 @@
-<h1>Welcome <span ng-show="!isUser && !isAdmin">dear guest</span> <span ng-show="isUser || isAdmin">{{username}}</span></h1>
+<h1>Welcome <span ng-show="!isUser && !isAdmin">dear guest</span> <span ng-show="isUser || isAdmin">{{username}}</span>
+</h1>
 <div class="container">
     <div ng-show="!isUser && !isAdmin">Below here you can see all the wishes in on the WISH LIST</div>
     <div ng-show="isUser || isAdmin">
-    <h3>User list</h3>
+        <h3>User list</h3>
 
-    <input placeholder="Search for user" ng-show="isUser || isAdmin" type="search" ng-model="userFilter">
-    <br/>
-    <select data-ng-model="selectedUser">
-        <option ng-repeat="user in AllUsers | filter: userFilter">{{user.userName}}</option>
+        <input placeholder="Search for user" ng-show="isUser || isAdmin" type="search" ng-model="userFilter">
+        <br/>
+        <select data-ng-model="selectedUser">
+            <option ng-repeat="user in AllUsers | filter: userFilter">{{user.userName}}</option>
 
-    </select> <button class="glyphicon glyphicon-plus" title="add to friendlist" ng-click="addFriend(selectedUser)"></button> <span>add user <span class="alert-success">{{status}}</span></span>
+        </select>
+        <button class="glyphicon glyphicon-plus" title="add to friendlist" ng-click="addFriend(selectedUser)"></button>
+        <span>add user <span class="alert-success">{{status}}</span></span>
     </div>
     <h3>All wishes</h3>
     <table class=" table table-striped">

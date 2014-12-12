@@ -26,8 +26,8 @@ angular.module('myAppRename.view3', ['ngRoute'])
         //    }
         //}
 
-        if ($scope.isAuthenticated)
-        {     wishFactory.getUser($scope.username).success(function (id) {
+        if ($scope.isAuthenticated) {
+            wishFactory.getUser($scope.username).success(function (id) {
                 console.log("id of logged in user: " + id[0]._id)
                 idUserLoggedIn = id[0]._id;
 
@@ -42,26 +42,31 @@ angular.module('myAppRename.view3', ['ngRoute'])
 
             })
 
-    }
+        }
 
         $scope.createWish = function createWish(wish) {
 
             console.log($scope.newWish._id)
             if ($scope.newWish._id != null) {
 
-                console.log("updated");
-                wishFactory.updateWish($scope.newWish._id, $scope.newWish)
-                $scope.newWish=null;
 
-                //Creating wishes isn't finished, needs a lot of polishing, existing bugs
+                wishFactory.updateWish($scope.newWish._id, $scope.newWish).success(function () {
+                    $scope.status = 'Your wish is updated';
+                }).
+                    error(function (error) {
+                        $scope.status = 'Unable to update your wish ';
+                        console.log(error.message)
+                    });
+                $scope.newWish = null;
+
 
             }
             else {
 
                 wishFactory.createWish(wish, idUserLoggedIn).success(function () {
-                        $scope.status = 'Inserted Customer! Refreshing customer list.';
+                    $scope.status = 'Inserted Customer! Refreshing customer list.';
 
-                    }).
+                }).
                     error(function (error) {
                         $scope.status = 'Unable to insert customer: ' + error.message;
                     });

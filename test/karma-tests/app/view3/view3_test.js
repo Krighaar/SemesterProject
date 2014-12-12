@@ -1,30 +1,41 @@
-//describe('myAppRename.view3 View3Ctrl', function() {
-//
-//  var scope, httpBackendMock, ctrl;
-//  var users = [
-//    {userName : "Lars", email :"l@l.dk",pw: "test",created : new Date(2014,11,2)},
-//    {userName : "Henrik", email :"h@h.dk",pw: "test",created : new Date(2014,11,2)},
-//  ];
-//  beforeEach(module('myAppRename.view3'));
-//
-//  beforeEach(inject(function ($httpBackend, $rootScope, $controller) {
-//    httpBackendMock = $httpBackend;
-//    httpBackendMock.expectGET('adminApi/user').
-//      respond(users);
-//    scope = $rootScope.$new();
-//    ctrl = $controller('View3Ctrl', {$scope: scope});
-//  }));
-//
-//  it('Should fetch two names ', function () {
-//    expect(scope.users).toBeUndefined();
-//    httpBackendMock.flush();
-//    expect(scope.users.length).toEqual(2);
-//  });
-//
-//  it('Should fetch Lars and Henrik', function () {
-//    expect(scope.users).toBeUndefined();
-//    httpBackendMock.flush();
-//    expect(JSON.stringify(scope.users)).toEqual(JSON.stringify(users));
-//  });
-//
-//});
+'use strict';
+/**
+ * Created by Tomoe on 10-12-2014.
+ */
+describe('myAppRename.view3 View3Ctrl', function() {
+
+    var scope, httpBackendMock, ctrl;
+    var wishes = [
+        {wish : "wish1"},{wish : "wish2"},{wish : "wish3"},{wish : "wish4"}
+    ];
+    var newWish={_id:1,wish:"editingWish"};
+
+    beforeEach(module('myAppRename.view3'));
+
+    beforeEach(inject(function ($httpBackend, $rootScope, $controller) {
+        httpBackendMock = $httpBackend;
+        httpBackendMock.whenPUT('/adminApi/wish/1',newWish).respond("edited");
+
+        scope = $rootScope.$new();
+        ctrl = $controller('View3Ctrl', {$scope: scope});
+        scope.isAuthenticated=true;
+        scope.username="bla"
+
+
+    }));
+
+
+
+    it('Wish with _id will be edited and status will be set to Your wish is updated', function () {
+
+        scope.newWish=newWish;
+        expect(scope.whises).toBeUndefined();
+        scope.createWish(scope.newWish);
+        httpBackendMock.flush();
+        expect(scope.status).toEqual('Your wish is updated');
+
+    });
+
+
+
+});

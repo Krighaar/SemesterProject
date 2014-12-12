@@ -2,27 +2,27 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myAppRename', [
-  'ngRoute',
-  'ui.bootstrap',
-  'myAppRename.controllers',
-  'myAppRename.directives',
-  'myAppRename.services',
-  'myAppRename.factories',
-  'myAppRename.filters',
-  'myAppRename.view1',
-  'myAppRename.view2',
-  'myAppRename.view3',
-  'myAppRename.view4',
-  'myAppRename.view5',
-  'myAppRename.view7',
-  'myAppRename.view8'
+    'ngRoute',
+    'ui.bootstrap',
+    'myAppRename.controllers',
+    'myAppRename.directives',
+    'myAppRename.services',
+    'myAppRename.factories',
+    'myAppRename.filters',
+    'myAppRename.view1',
+    'myAppRename.view2',
+    'myAppRename.view3',
+    'myAppRename.view4',
+    'myAppRename.view5',
+    'myAppRename.view7',
+    'myAppRename.view8'
 ]).
-config(['$routeProvider', function($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/view1'});
-}])
-.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-  });
+    config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.otherwise({redirectTo: '/view1'});
+    }])
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    });
 
 
 

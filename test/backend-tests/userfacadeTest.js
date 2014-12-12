@@ -15,9 +15,9 @@ var user = require('../../server/model/user')
 var wish = require('../../server/model/wish')
 
 /*
-    #By request from LAM we have created the Facade Test in seperate File
-    ##The file we are testing in here is the wish.js
-*/
+ #By request from LAM we have created the Facade Test in seperate File
+ ##The file we are testing in here is the wish.js
+ */
 describe('Testing userfacade ', function () {
     //Start the Server before the TESTS
 
@@ -126,23 +126,20 @@ describe('Testing userfacade ', function () {
     })
 
 
-
-
     describe('Testing deleteUser ', function () {
         it("should return 3 users, with userNames: jack and John", function (done) {
 
 
             user.addNewUser({"userName": "Tom"}, function (err, addedUser) {
 
-                wish.getUsers(function(err,users){
-                    if(err)
-                        return "error"+err;
+                wish.getUsers(function (err, users) {
+                    if (err)
+                        return "error" + err;
 
                     users.length.should.equal(4);
 
 
-
-                user.deleteUser(addedUser._id, function (err, result) {
+                    user.deleteUser(addedUser._id, function (err, result) {
                         if (err)
                             return "error: " + err
 
@@ -168,20 +165,19 @@ describe('Testing userfacade ', function () {
         it("should return 4 users, with userNames: jack, John, Smith and Tom", function (done) {
 
 
-
             var newUser = {"userName": "Tom"}
 
 
-            user.addNewUser(newUser,function (err, result) {
+            user.addNewUser(newUser, function (err, result) {
                     if (err)
                         return "error: " + err
 
 
                     result.userName.should.equal("Tom");
 
-                    wish.getUsers(function(err,users){
-                        if(err)
-                            return "error"+err;
+                    wish.getUsers(function (err, users) {
+                        if (err)
+                            return "error" + err;
 
                         users.length.should.equal(4);
 

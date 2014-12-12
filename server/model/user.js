@@ -5,8 +5,7 @@ var mongoose = require('mongoose');
 var user = mongoose.model('User');
 
 
-
-function addNewUser(newUser,callback) {
+function addNewUser(newUser, callback) {
     user.create(newUser, (function (err, user) {
         if (err) {
             return callback(err)
@@ -17,7 +16,7 @@ function addNewUser(newUser,callback) {
 
 }
 
-function deleteUser(id,callback) {
+function deleteUser(id, callback) {
     user.findByIdAndRemove(id, (function (err, user) {
         if (err) {
             return callback(err)
@@ -27,23 +26,21 @@ function deleteUser(id,callback) {
 }
 
 
-    function editUser(id,editingUser,callback) {
-        user.findByIdAndUpdate(id, editingUser,function (err, user) {
-            if (err) {
-                return callback(err)
-            }
-            callback(null, user);
-        })
-    }
-
+function editUser(id, editingUser, callback) {
+    user.findByIdAndUpdate(id, editingUser, function (err, user) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, user);
+    })
+}
 
 
 module.exports = {
 
     addNewUser: addNewUser,
-deleteUser:deleteUser,
-    editUser:editUser
-
+    deleteUser: deleteUser,
+    editUser: editUser
 
 
 }

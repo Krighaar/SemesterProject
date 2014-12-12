@@ -692,7 +692,7 @@ describe('Testing facade - Modify a wish', function () {
 
                     wish.updateWish(wishResult._id, modifiedWish, function (err, result) {
                         if (err) {
-                            console.log("eror "+err)
+                            console.log("eror " + err)
                             return "error: " + err
                         }
                         console.log("printing result in test " + result);

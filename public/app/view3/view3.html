@@ -19,7 +19,10 @@
         <td>{{wish.price}}</td>
         <td>{{wish.description}}</td>
         <td><a target="_blank" href="http://{{wish.link}}">{{wish.link}}</a></td>
-        <td><button ng-click="removeWishByID(wish._id)" class="glyphicon glyphicon-trash"> Delete</button> <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button></td>
+        <td>
+            <button ng-click="removeWishByID(wish._id)" class="glyphicon glyphicon-trash"> Delete</button>
+            <button ng-click="edit(wish)" class="glyphicon glyphicon-pencil"> Edit</button>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -35,25 +38,25 @@
 <!--<br/>-->
 <!--<button class="btn btn-default" ng-model="newWish.link" ng-click="moveFromToList()">Add to to buy list</button>-->
 <!--<br/>-->
-        <!--<h4>TO BUY</h4>-->
+<!--<h4>TO BUY</h4>-->
 <!--<table class="table table-striped">-->
-    <!--<thead>-->
-    <!--<th>Bought</th>-->
-    <!--<th>Title</th>-->
-    <!--<th>Price</th>-->
-    <!--<th>Description</th>-->
-    <!--<th>Owner</th>-->
-    <!--<th>Link</th>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--<tr ng-repeat="wish in toBuy">-->
-        <!--<td><input type="checkbox"></td>-->
-        <!--<td>{{wish.title}}</td>-->
-        <!--<td>{{wish.price}}</td>-->
-        <!--<td>{{wish.description}}</td>-->
-        <!--<td>{{wish.owner}}</td>-->
-        <!--<td>{{wish.link}} </td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
+<!--<thead>-->
+<!--<th>Bought</th>-->
+<!--<th>Title</th>-->
+<!--<th>Price</th>-->
+<!--<th>Description</th>-->
+<!--<th>Owner</th>-->
+<!--<th>Link</th>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="wish in toBuy">-->
+<!--<td><input type="checkbox"></td>-->
+<!--<td>{{wish.title}}</td>-->
+<!--<td>{{wish.price}}</td>-->
+<!--<td>{{wish.description}}</td>-->
+<!--<td>{{wish.owner}}</td>-->
+<!--<td>{{wish.link}} </td>-->
+<!--</tr>-->
+<!--</tbody>-->
 <!--</table>-->
 
