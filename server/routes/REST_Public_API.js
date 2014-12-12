@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var user = mongoose.model('User');
 var facade = require('../model/wish')
+var userfacade = require('../model/user')
 
 router.post('/userAdmin', function (req, res, next) {
 
