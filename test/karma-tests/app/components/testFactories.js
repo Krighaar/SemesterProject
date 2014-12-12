@@ -46,7 +46,7 @@ describe('testing userFactory', function () {
     it('addUser return promise and repond with the user"', function () {
         var theUser;
         var addingUser = {username: "addedPerson"}
-        httpBackendMock.whenPOST(url2).respond(200, addingUser);
+        httpBackendMock.whenPOST("publicApi/userAdmin").respond(200, addingUser);
         factory.addUser(addingUser).then(function (user) {
             theUser = user;
 

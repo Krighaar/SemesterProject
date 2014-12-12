@@ -5,6 +5,19 @@ var mongoose = require('mongoose');
 var user = mongoose.model('User');
 var facade = require('../model/wish')
 
+router.post('/userAdmin', function (req, res, next) {
+
+    userfacade.addNewUser(req.body, function (err, user) {
+        if (err) {
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+        res.end(JSON.stringify(user));
+    })
+
+})
 
 router.get('/wish', function (req, res) {
 

@@ -113,7 +113,7 @@ app.factory('userFactory', ['$http', function ($http) {
     }
 
     userFactory.addUser = function (userjson) {
-        return $http.post(urlBase, userjson)
+        return $http.post("publicApi/userAdmin", userjson)
     }
 
 
