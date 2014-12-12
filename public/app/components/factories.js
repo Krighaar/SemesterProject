@@ -106,7 +106,7 @@ app.factory('userFactory', ['$http', function ($http) {
     var urlBase = 'adminApi/userAdmin/';
     var userFactory = {};
     userFactory.getAllUsers = function () {
-        return $http.get("adminApi/")
+        return $http.get("publicApi/")
     }
     userFactory.removeUser = function (id) {
         return $http.delete(urlBase + id)

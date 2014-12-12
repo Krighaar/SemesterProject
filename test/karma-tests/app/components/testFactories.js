@@ -15,7 +15,7 @@ describe('testing userFactory', function () {
 
     it('getAllUsers should return promise and respond with String"', function () {
         var theUsers;
-        httpBackendMock.expectGET(url).respond(200, "usersString");
+        httpBackendMock.expectGET("publicApi/").respond(200, "usersString");
 
         factory.getAllUsers().then(function (users) {
             theUsers = users;

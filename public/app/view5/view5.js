@@ -21,13 +21,12 @@ angular.module('myAppRename.view5', ['ngRoute'])
 
         $scope.list = [];
 
-        if ($scope.isAuthenticated) {
+
             userFactory.getAllUsers().success(function (users) {
                     $scope.allUsers = users;
                     console.log(JSON.stringify(users))
                 }
             )
-        }
 
         $scope.removeUser = function (deletinguser) {
             var deletingId = deletinguser._id;

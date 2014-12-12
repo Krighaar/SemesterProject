@@ -21,5 +21,18 @@ router.get('/wish', function (req, res) {
 
 
 });
+router.get('/', function (req, res) {
 
+    facade.getUsers(function (err, users) {
+        if (err) {
+            res.status(err.status || 500);
+            res.send(JSON.stringify({error: err.toString()}));
+            return;
+        }
+        res.header("Content-type", "application/json");
+
+        res.end(JSON.stringify(users));
+    })
+
+});
 module.exports = router;

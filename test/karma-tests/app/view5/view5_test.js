@@ -11,7 +11,7 @@ describe('myAppRename.view5 View5Ctrl', function () {
 
     beforeEach(inject(function ($httpBackend, $rootScope, $controller) {
         httpBackendMock = $httpBackend;
-        httpBackendMock.expectGET('adminApi/').respond(users);
+        httpBackendMock.expectGET('publicApi/').respond(users);
 
 
         scope = $rootScope.$new();
