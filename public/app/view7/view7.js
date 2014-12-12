@@ -37,16 +37,16 @@ angular.module('myAppRename.view7', ['ngRoute'])
 
 
                         console.log("change success " + JSON.stringify(data))
-                        alert("Your Password has been changed")
+
 
                     })
                     .error(function (data, status, headers, config) {
 
                         console.log("change error")
-                        alert("ERROR! Your Password has not been changed. If error continues, please contact admin ")
+                        $scope.status="ERROR! Your Password has not been changed. If error continues, please contact admin "
                     })
 
-
+                alert("Your Password has been changed")
                 $scope.error = "";
 
 

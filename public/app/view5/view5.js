@@ -20,13 +20,13 @@ angular.module('myAppRename.view5', ['ngRoute'])
 
 
         $scope.list = [];
+        $scope.status = "";
 
-
-            userFactory.getAllUsers().success(function (users) {
-                    $scope.allUsers = users;
-                    console.log(JSON.stringify(users))
-                }
-            )
+        userFactory.getAllUsers().success(function (users) {
+                $scope.allUsers = users;
+                console.log(JSON.stringify(users))
+            }
+        )
 
         $scope.removeUser = function (deletinguser) {
             var deletingId = deletinguser._id;
@@ -37,23 +37,23 @@ angular.module('myAppRename.view5', ['ngRoute'])
             userFactory.removeUser(deletingId).success(function (deletedUser) {
 
                 userFactory.getAllUsers().success(function (users) {
-                    alert(deletedUser.userName + " is deleted")
+                    $scope.status = "User deleted"
                     $scope.allUsers = users;
                 })
 
             })
                 .error(function (error) {
-                    $scope.status = "unable to get wishes"
+                    $scope.status = "unable to remove"
                 })
 
             $http.delete("/deleteUser", {data: deletingUser, headers: {'Content-Type': 'application/json'}})
                 .success(function (data, status, headers, config) {
-
+                    $scope.status = "deleteed"
                     console.log("delete success " + JSON.stringify(data))
 
                 })
                 .error(function (data, sutatus, headers, config) {
-
+                    $scope.status = "delete error"
                     console.log("delete error")
                 })
 

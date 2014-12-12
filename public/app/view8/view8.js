@@ -36,25 +36,25 @@ angular.module('myAppRename.view8', ['ngRoute'])
 
 
                     if (!alreadyFound) {
-                        addinguser.pw = $scope.addingpw;
-                        console.log(JSON.stringify(addinguser))
+
+                       // console.log(JSON.stringify(addinguser))
                         userFactory.addUser(addinguser).success(function (addeduser) {
 
                             $http.post("/createUser", addinguser)
                                 .success(function (data, status, headers, config) {
 
-                                    alert("You are added to Database")
+
                                     console.log("create success " + JSON.stringify(data))
 
                                 })
                                 .error(function (data, status, headers, config) {
-                                    alert("Something is wrong. If error continues, please contact admin.")
+                                  $scope.error="Something is wrong. If error continues, please contact admin."
                                     console.log("create error")
 
 
                                 })
 
-
+                            alert("You are added to Database")
                             $scope.error = "";
 
 
