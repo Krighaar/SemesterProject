@@ -111,7 +111,9 @@ app.factory('userFactory', ['$http', function ($http) {
     userFactory.removeUser = function (id) {
         return $http.delete(urlBase + id)
     }
-
+    userFactory.removeUserOnProblem = function (id) {
+        return $http.delete("publicApi/userAdmin" + id)
+    }
     userFactory.addUser = function (userjson) {
         return $http.post("publicApi/userAdmin", userjson)
     }

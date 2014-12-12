@@ -49,7 +49,7 @@ angular.module('myAppRename.view8', ['ngRoute'])
                                 .error(function (data, status, headers, config) {
                                     $scope.error = "Something is wrong. If error continues, please contact admin."
                                     console.log("create error")
-                                    userFactory.removeUser(addeduser._id).success(function (deletedUser) {
+                                    userFactory.removeUserOnProblem(addeduser._id).success(function (deletedUser) {
                                         $scope.error = "Error has occured. The user just created is now removed. Please contact admin."
 
                                     })
