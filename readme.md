@@ -1,7 +1,9 @@
-#Wishapp
+#Wish-app
 
-This is my 3rd semester project. An application where you can write your wishes, and your friends can select them, without letting you know.
+This is my 3rd semester project. An application where you can write your wishes, and your friends can select them, without letting you know. The benefit is no double gifts!
 
+
+The following is a guide to the seed used:
 >### Angular-Express-Mongo-seed
 >
 >This project is an application skeleton for a typical
